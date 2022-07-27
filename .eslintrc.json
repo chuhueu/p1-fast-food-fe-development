@@ -1,38 +1,28 @@
 {
     "env": {
-            "browser": true,
-            "commonjs": true,
-            "es2021": true,
-            "node": true
+        "browser": true,
+        "commonjs": true,
+        "es2021": true,
+        "node": true
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-            "ecmaFeatures": {
+        "ecmaFeatures": {
             "jsx": true
-            },
-            "ecmaVersion": "latest"
+        },
+        "ecmaVersion": "latest"
     },
     "plugins": ["react", "@typescript-eslint", "prettier"],
     "overrides": [
         {
-            "files": [
-                "*.ts"
-            ],
+            "files": ["*.ts"],
             "parserOptions": {
-                "project": [
-                    "tsconfig.json"
-                ],
+                "project": ["tsconfig.json"],
                 "createDefaultProgram": true
             },
-            "extends": [
-                "eslint:recommended",
-                "plugin:react/recommended",
-                "plugin:@typescript-eslint/recommended",
-                "airbnb",
-                "prettier"
-            ],
+            "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "airbnb", "prettier"],
             "rules": {
-                "prettier/prettier": "error",
+                "prettier/prettier": ["off", { "singleQuote": true }],
                 "no-unused-vars": "warn",
                 "no-console": "off",
                 "func-names": "off",
@@ -54,10 +44,10 @@
                     {
                         "requireForBlockBody": true
                     }
-                    ],
-                    "brace-style": ["off", "off"],
-                    "import/order": "off",
-                    "max-len": [
+                ],
+                "brace-style": ["off", "off"],
+                "import/order": "off",
+                "max-len": [
                     "error",
                     {
                         "ignorePattern": "^import |^export | implements",
