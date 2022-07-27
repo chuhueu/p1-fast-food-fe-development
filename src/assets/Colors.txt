@@ -1,0 +1,12 @@
+// export default {
+//   orangeLight: '#f8a704',
+//   yellowLight: '#ffcc00',
+//   grayBold: '#8E8E93',
+//   grayMedium: '#aeaeb2',
+//   grayNormal: '#c7c7cc',
+//   grayLight: '#d1d1d6',
+//   grayBlur: '#e5e5ea',
+//   grayFade: '#f2f2f7',
+//   black: '#000000',
+//   white: '#FFFFFF'
+// };
