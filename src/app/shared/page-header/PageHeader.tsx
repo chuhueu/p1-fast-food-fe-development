@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import logo from './logo-page-header.png';
 import AuthButton from '../auth-button/AuthButton';
 import NavbarHeader from './components/navbar-header';
 
@@ -23,7 +23,7 @@ const PageHeader = () => {
             <Container>
                 <div className="flex items-center justify-between h-25 ">
                     <img
-                        src="https://img.freepik.com/premium-vector/cheers-champagne-hand-drawn-lettering-illustration-illustration-isolated-white-background_218179-81.jpg?w=2000"
+                        src={logo}
                         alt="logo"
                         className="w-28"
                     />
