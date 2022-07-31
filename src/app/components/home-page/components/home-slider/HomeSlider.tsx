@@ -9,17 +9,18 @@ import './style.scss';
 import SwiperCore, { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const img = 'https://smd.com.vn/wp-content/uploads/2020/04/The-235-Italian-1.png';
+//img
+import { Wine, Beer, Liquor } from '../../../../utils/dataImages';
 
 SwiperCore.use([Autoplay, Navigation]);
 
 const HomeSlider = () => {
     return (
-        <section className="text-center my-[80px] relative">
+        <section className="text-center py-[80px] relative bg-white">
             <Container>
                 <Swiper
-                    slidesPerView={5}
                     loop={true}
+                    slidesPerGroup={3}
                     loopFillGroupWithBlank={true}
                     autoplay={{
                         delay: 1800,
@@ -44,7 +45,9 @@ const HomeSlider = () => {
                 >
                     <SwiperSlide>
                         <div className="flex flex-col gap-3">
-                            <img src={img} />
+                            <div className="flex justify-center items-center">
+                                <img src={Wine} className="h-28" />
+                            </div>
                             <Typography variant="caption" component="span">
                                 Wine
                             </Typography>
@@ -52,7 +55,9 @@ const HomeSlider = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="flex flex-col gap-3">
-                            <img src={img} />
+                            <div className="flex justify-center items-center">
+                                <img src={Beer} className="h-28" />
+                            </div>
                             <Typography variant="caption" component="span">
                                 Beer
                             </Typography>
@@ -60,26 +65,11 @@ const HomeSlider = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="flex flex-col gap-3">
-                            <img src={img} />
+                            <div className="flex justify-center items-center ">
+                                <img src={Liquor} className="h-28" />
+                            </div>
                             <Typography variant="caption" component="span">
                                 Liquor
-                            </Typography>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="flex flex-col gap-3">
-                            <img src={img} />
-                            <Typography variant="caption" component="span">
-                                Mixer
-                            </Typography>
-                        </div>
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                        <div className="flex flex-col gap-3">
-                            <img src={img} />
-                            <Typography variant="caption" component="span">
-                                RTDs
                             </Typography>
                         </div>
                     </SwiperSlide>
@@ -106,7 +96,8 @@ const HomeSlider = () => {
                         background: '#111',
                         position: 'absolute',
                         top: '40%',
-                        right: '20px'
+                        right: '20px',
+                        zIndex: '10'
                     }}
                     className="next-btn"
                 >

@@ -1,14 +1,19 @@
 import { Container } from '@mui/material';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo-page-header.png';
+import { Logo } from '../../utils/dataImages';
 import AuthButton from '../auth-button/AuthButton';
+
 import NavbarHeader from './components/navbar-header';
+import UserHeader from './components/user-header';
+import NavbarUser from './components/navbar-user';
+import { useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
 const PageHeader = () => {
     const [showNav, setShowNav] = useState(false);
+    const [showUserNav, setShowUserNav] = useState(false);
+    const [user, setUser] = useState(false);
 
     const showNavbar = () => {
         setShowNav(true);
@@ -18,32 +23,46 @@ const PageHeader = () => {
         setShowNav(false);
     };
 
+    const showUserNavbar = () => {
+        setShowUserNav(true);
+    };
+
+    const closeUserNavbar = () => {
+        setShowUserNav(false);
+    };
+
     return (
-        <div className="bg-[#f8a70433]">
+        <div>
             <Container>
-                <div className="flex items-center justify-between h-25 ">
-                    <img
-                        src={logo}
-                        alt="logo"
-                        className="w-28"
-                    />
+                <div className="flex items-center justify-between h-25 pt-5">
+                    <img src={Logo} alt="logo" className="w-40" />
 
-                    <div className="flex items-center gap-5">
-                        <ul className="flex items-center font-bold gap-6 text-xl cursor-pointer">
-                            <li>Celebrate</li>
-                            <Link to="/sign-up">Sign up</Link>
-                        </ul>
+                    {/* user header */}
+                    {user ? (
+                        <NavbarUser showNavbarUser={showUserNavbar} />
+                    ) : (
+                        <div className=" items-center gap-5 flex">
+                            <ul className="flex items-center font-bold gap-6 text-xl cursor-pointer tablet:hidden">
+                                <li>Celebrate</li>
+                                <Link to="/sign-up">Sign up</Link>
+                            </ul>
 
-                        <div>
-                            <AuthButton page="sign-in">Log In</AuthButton>
+                            <div className="phone-sm:hidden">
+                                <AuthButton page="sign-in">Log In</AuthButton>
+                            </div>
+
+                            <div className="cursor-pointer" onClick={showNavbar}>
+                                <MenuIcon />
+                            </div>
                         </div>
+                    )}
 
-                        <div className="cursor-pointer" onClick={showNavbar}>
-                            <MenuIcon />
-                        </div>
-                    </div>
-
-                    <NavbarHeader showNav={showNav} closeNavbar={closeNavbar} />
+                    {/* pre-login header */}
+                    {user ? (
+                        <UserHeader showUserNav={showUserNav} closeUserNav={closeUserNavbar} />
+                    ) : (
+                        <NavbarHeader showNav={showNav} closeNavbar={closeNavbar} />
+                    )}
                 </div>
             </Container>
         </div>
