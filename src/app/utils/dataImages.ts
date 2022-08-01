@@ -13,6 +13,7 @@ import Liquor from '../../assets/images/home/Liquor.svg';
 import CoronaBeer from '../../assets/images/home/corona.svg';
 import Sapporo from '../../assets/images/home/Sapporo.svg';
 import SmirnoffIce from '../../assets/images/home/SmirnoffIce.svg';
+import CoorLightBeer from '../../assets/images/home/CoorLight.svg';
 
 import ChickenCoupon from '../../assets/images/home/ChickenCoupon.svg';
 import OutskirtCoupon from '../../assets/images/home/OutskirtsCoupon.svg';
@@ -37,6 +38,7 @@ export {
     MainBanner,
     CoronaBeer,
     Sapporo,
+    CoorLightBeer,
     SmirnoffIce,
     ChickenCoupon,
     OutskirtCoupon,

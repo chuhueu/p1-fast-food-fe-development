@@ -1,28 +1,32 @@
-import { Button, styled } from '@mui/material';
-import { FC } from 'react';
-//import { useHistory } from 'react-router-dom';
+import React from 'react';
 
-interface IProps {
-    //page: string;
-    children: any;
+interface Props {
+    border: string;
+    bgcolor: string;
+    children?: React.ReactNode;
+    height: string;
+    onClick: () => void;
+    radius: string;
+    width: string;
+    color: string;
 }
 
-const Primary = styled(Button)({
-    backgroundColor: 'inherit',
-    color: '#FFFFFF',
-    padding: '10px 20px ',
-    textTransform: 'capitalize',
-    border: '1px solid #FFFFFF',
-    maxWidth: '180px'
-}) as typeof Button;
-
-const PrimaryButton: FC<IProps> = ({ children }) => {
+const PrimaryButton: React.FC<Props> = ({ border, bgcolor, color, children, height, onClick, radius, width }) => {
     return (
-        <>
-            <Primary className="!text-xl !font-semibold" size="large">
-                {children}
-            </Primary>
-        </>
+        <button
+            onClick={onClick}
+            style={{
+                backgroundColor: bgcolor,
+                border,
+                borderRadius: radius,
+                height,
+                width,
+                color: color
+            }}
+            className="!text-lg !font-semibold"
+        >
+            {children}
+        </button>
     );
 };
 

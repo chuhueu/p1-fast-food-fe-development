@@ -1,4 +1,4 @@
-import { HomePage, SignIn, SignUp } from '../components';
+import { HomePage, SignIn, SignUp, PageDelivery } from '../components';
 
 export const Routes = [
     {
@@ -13,5 +13,9 @@ export const Routes = [
     {
         path: '/sign-up',
         component: SignUp
+    },
+    {
+        path: '/delivery',
+        component: PageDelivery
     }
 ];

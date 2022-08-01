@@ -46,7 +46,19 @@ const Footer = () => {
                             Email Address
                         </label>
                         <input type="text" className="border-none outline-none h-10 w-3/5 px-3 rounded" id="footer-submit" />
-                        <PrimaryButton>Submit</PrimaryButton>
+                        <PrimaryButton
+                            radius="10px"
+                            border="1px solid #FFF"
+                            bgcolor="inherit"
+                            color="#FFF"
+                            width="30%"
+                            height="50px"
+                            onClick={() => {
+                                console.log('done');
+                            }}
+                        >
+                            Submit
+                        </PrimaryButton>
                     </Box>
 
                     <Box

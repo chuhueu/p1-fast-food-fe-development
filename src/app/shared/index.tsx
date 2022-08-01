@@ -5,3 +5,7 @@ export { default as CardSlider } from './card-slider/CardSider';
 export { default as Footer } from './footer/Footer';
 export { default as PrimaryButton } from './primary-button/PrimaryButton';
 export { default as InputField } from './input-field/InputField';
+export { default as FilterBar } from './filter-bar/FilterBar';
+export { default as CategorySlider } from './category-slider/CategorySlider';
+export { default as ImageSlider } from './image-slider/ImageSlider';
+export { default as RestaurantSilder } from './restaurant-slider/RestaurantSlider';

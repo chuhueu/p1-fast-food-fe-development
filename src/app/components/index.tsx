@@ -4,3 +4,7 @@ export { default as SignUp } from './auth/sign-up/SignUp';
 
 //Home page
 export { default as HomePage } from './home-page/HomePage';
+
+// Main page - Delivery
+
+export { default as PageDelivery } from './page-delivery/PageDelivery';
