@@ -8,7 +8,8 @@ const initState: cartState = {
 
 type Action = { type: 'SHOW_CART'; payload: boolean };
 
-const cartReducer = (action: Action, state: cartState = initState) => {
+// Declare the type which you return if don't know, let it be any
+const cartReducer = (action: Action, state: cartState = initState): any => {
     switch (action.type) {
         case 'SHOW_CART': {
             return {
