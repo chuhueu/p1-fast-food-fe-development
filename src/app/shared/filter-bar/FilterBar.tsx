@@ -4,7 +4,7 @@ import { PrimaryButton } from '../../shared';
 
 const FilterBar = () => {
     return (
-        <Box className="flex flex-col gap-4 px-3 bg-gray-fade tablet:hidden">
+        <Box className="flex flex-col gap-4 px-3 bg-filter-bar tablet:hidden">
             <Typography
                 variant="h4"
                 component="h2"

@@ -15,7 +15,9 @@ module.exports = {
                 'yellow-light': '#FFCE00',
                 'orange-light': '#F5AD11',
                 'gray-blur': '#e5e5ea',
-                'gray-fade': '#f2f2f7'
+                'gray-fade': '#f2f2f7',
+                'filter-bar': 'rgba(252, 252, 252, 1)',
+                overlay: 'rgba(0,0,0,.84)'
             }
         }
     },

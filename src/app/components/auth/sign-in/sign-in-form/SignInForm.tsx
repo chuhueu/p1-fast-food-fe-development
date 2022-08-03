@@ -10,6 +10,10 @@ import * as yup from 'yup';
 
 import { Box } from '@mui/material';
 
+import { useContext } from 'react';
+import { AuthContext } from '../../../../context/AuthContext';
+import { useHistory } from 'react-router-dom';
+
 const dataInput = [
     {
         label: 'Email Address',
@@ -24,14 +28,11 @@ const dataInput = [
 ];
 
 interface IFormInputs {
-    username: string;
     email: string;
     password: string;
-    confirmPassword: string;
 }
 
 const schema = yup.object({
-    username: yup.string().required('This field is required'),
     email: yup
         .string()
         .required('This field is required')
@@ -39,14 +40,13 @@ const schema = yup.object({
     password: yup
         .string()
         .required('This field is required')
-        .matches(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/, 'Password should be 8 chars minimum and at least 1 number'),
-    confirmPassword: yup
-        .string()
-        .required('Confirm Password is required')
-        .oneOf([yup.ref('password')], 'Passwords must match')
+        .matches(/^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/, 'Password should be 8 chars minimum and at least 1 number')
 });
 
 const SignInForm = () => {
+    const { setUser } = useContext(AuthContext);
+    const history = useHistory();
+
     const {
         register,
         handleSubmit,
@@ -58,15 +58,11 @@ const SignInForm = () => {
 
     const onHandleSubmit = (data: object) => {
         // reset: ({
-        //     username: '',
         //     email: '',
         //     password: '',
-        //     confirmPassword: ''
         // });
-
-        console.log(data);
-
-        alert('done');
+        setUser(data);
+        history.push('/delivery');
     };
 
     return (
@@ -90,7 +86,7 @@ const SignInForm = () => {
                         justifyContent: 'center'
                     }}
                 >
-                    <AuthButton page="submit">Log In</AuthButton>
+                    <AuthButton page="submit-signUp">Log In</AuthButton>
                 </Box>
             </form>
         </>

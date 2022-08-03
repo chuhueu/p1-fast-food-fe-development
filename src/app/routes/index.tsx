@@ -1,4 +1,6 @@
-import { HomePage, SignIn, SignUp, PageDelivery } from '../components';
+import { HomePage, SignIn, SignUp } from '../components';
+
+import { PageDelivery } from '../screens';
 
 export const Routes = [
     {

@@ -27,6 +27,8 @@ import Desc3 from '../../assets/images/home/3.svg';
 import Desc4 from '../../assets/images/home/desc4.svg';
 import Desc5 from '../../assets/images/home/desc5.svg';
 
+import EmptyCart from '../../assets/images/cart/empty_cart.jpg';
+
 export {
     Logo,
     smallLogo,
@@ -49,5 +51,6 @@ export {
     Desc2,
     Desc3,
     Desc4,
-    Desc5
+    Desc5,
+    EmptyCart
 };
