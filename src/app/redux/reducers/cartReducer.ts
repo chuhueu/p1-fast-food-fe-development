@@ -9,7 +9,8 @@ const initState: cartState = {
 type Action = { type: 'SHOW_CART'; payload: boolean };
 
 // Declare the type which you return if don't know, let it be any
-const cartReducer = (action: Action, state: cartState = initState): any => {
+// eslint-disable-next-line default-param-last
+const cartReducer = (state: cartState = initState, action: Action): any => {
     switch (action.type) {
         case 'SHOW_CART': {
             return {

@@ -8,6 +8,10 @@ import { SearchInput } from '../../../shared';
 import { Link, useLocation } from 'react-router-dom';
 import { Typography, Avatar } from '@mui/material';
 
+import { State } from '../../../redux/reducers/';
+import { useDispatch } from 'react-redux';
+import showCart from '../../../redux/action-creators';
+
 const navItem = [
     {
         path: '/delivery',
@@ -28,9 +32,17 @@ interface IProps {
 }
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
+    const dispatch = useDispatch();
     const { pathname } = useLocation();
     const activeNav = pathname.replace('/', '');
     const [typeNav, setTypeNav] = useState(activeNav);
+
+    const [cart, setCart] = useState(false);
+
+    const handleShowCart = () => {
+        setCart(!cart);
+        dispatch(showCart(cart));
+    };
 
     return (
         <>
@@ -55,7 +67,10 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                     <SearchInput placeholder="Beer, Wine, Food, etc" />
 
                     <div className="flex gap-5">
-                        <div className="bg-yellow-light flex items-center py-3 px-5 rounded-2xl gap-2 cursor-pointer">
+                        <div
+                            className="bg-yellow-light flex items-center py-3 px-5 rounded-2xl gap-2 cursor-pointer"
+                            onClick={() => handleShowCart()}
+                        >
                             <ShoppingCartIcon
                                 sx={{
                                     width: '30px',
