@@ -1,25 +1,28 @@
-import { FC } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+import { FC, useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { SearchInput } from '../../../shared';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Typography, Avatar } from '@mui/material';
+
+import { State } from '../../../redux/reducers/';
+import { useDispatch } from 'react-redux';
+import showCart from '../../../redux/action-creators';
 
 const navItem = [
     {
-        path: '/',
+        path: '/delivery',
         itemName: 'delivery'
     },
     {
-        path: '/',
+        path: '/pick-up',
         itemName: 'pick-up'
     },
     {
-        path: '/',
+        path: '/event',
         itemName: 'event'
     }
 ];
@@ -29,13 +32,32 @@ interface IProps {
 }
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const activeNav = pathname.replace('/', '');
+    const [typeNav, setTypeNav] = useState(activeNav);
+
+    const [cart, setCart] = useState(false);
+
+    const handleShowCart = () => {
+        setCart(!cart);
+        //dispatch(showCart(cart));
+    };
+
     return (
         <>
             <div className="flex items-center justify-between w-full">
                 <nav className="ml-11 border-4 border-solid border-gray-blur rounded-3xl bg-gray-blur">
                     <ul className="flex">
                         {navItem.map(({ path, itemName }) => (
-                            <Link to={path} key={itemName} className="cursor-pointer py-2 px-5">
+                            <Link
+                                to={path}
+                                key={itemName}
+                                className={
+                                    typeNav === itemName ? 'cursor-pointer py-2 px-5 bg-white rounded-3xl' : 'cursor-pointer py-2 px-5'
+                                }
+                                onClick={() => setTypeNav(itemName)}
+                            >
                                 <span>{itemName}</span>
                             </Link>
                         ))}
@@ -45,7 +67,10 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                     <SearchInput placeholder="Beer, Wine, Food, etc" />
 
                     <div className="flex gap-5">
-                        <div className="bg-yellow-light flex items-center py-3 px-5 rounded-2xl gap-2 cursor-pointer">
+                        <div
+                            className="bg-yellow-light flex items-center py-3 px-5 rounded-2xl gap-2 cursor-pointer"
+                            onClick={() => handleShowCart()}
+                        >
                             <ShoppingCartIcon
                                 sx={{
                                     width: '30px',

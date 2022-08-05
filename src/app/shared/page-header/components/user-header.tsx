@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { Logo } from '../../../utils/dataImages';
 
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface IProps {
     closeUserNav: Function;

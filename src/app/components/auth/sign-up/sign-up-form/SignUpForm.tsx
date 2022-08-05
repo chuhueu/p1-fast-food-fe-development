@@ -73,9 +73,6 @@ const SignUpForm = () => {
         //     password: '',
         //     confirmPassword: ''
         // });
-
-        console.log(data);
-
         alert('done');
     };
 

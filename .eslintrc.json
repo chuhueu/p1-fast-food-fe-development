@@ -1,10 +1,4 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "node": true
-    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
@@ -22,6 +16,8 @@
             },
             "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "airbnb", "prettier"],
             "rules": {
+                "import/extensions": "off",
+                "import/no-unresolved": "off",
                 "no-restricted-imports": [
                     "error",
                     {
@@ -44,6 +40,8 @@
                     }
                 ],
                 "@typescript-eslint/no-inferrable-types": "off",
+
+                "@typescript-eslint/no-explicit-any": ["off"],
                 "arrow-parens": [
                     "error",
                     "as-needed",

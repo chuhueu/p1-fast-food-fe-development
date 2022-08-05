@@ -46,8 +46,6 @@ const AuthButton: FC<IProps> = ({ page, children }) => {
             case 'sign-up':
                 history.push('/sign-up');
                 break;
-            case 'submit':
-                break;
             default:
                 break;
         }
