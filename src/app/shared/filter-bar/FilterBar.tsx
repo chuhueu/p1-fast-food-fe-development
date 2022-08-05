@@ -1,8 +1,30 @@
 import React from 'react';
-import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
 import { PrimaryButton } from '../../shared';
 
+const dataCategory = [
+    {
+        categoryName: 'Category'
+    },
+    {
+        categoryName: 'Burgers'
+    },
+    {
+        categoryName: 'Drinks'
+    },
+    {
+        categoryName: 'Pizzas'
+    }
+];
+
 const FilterBar = () => {
+    const [category, setCategory] = React.useState(dataCategory[0].categoryName);
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setCategory(event.target.value);
+    };
+
     return (
         <Box className="flex flex-col gap-4 px-3 bg-filter-bar tablet:hidden">
             <Typography
@@ -15,6 +37,9 @@ const FilterBar = () => {
             >
                 Filters
             </Typography>
+
+            {/* Type */}
+
             <Box
                 sx={{
                     width: '200px'
@@ -57,6 +82,49 @@ const FilterBar = () => {
                     />
                 </RadioGroup>
             </Box>
+
+            {/* Category */}
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '10px',
+                    flexDirection: 'column'
+                }}
+            >
+                <FormLabel
+                    id="sort-type"
+                    sx={{
+                        color: '#111',
+                        fontWeight: '600'
+                    }}
+                >
+                    Category
+                </FormLabel>
+                <FormControl
+                    sx={{
+                        width: '100%',
+                        '&:hover': {
+                            '&& fieldset': {
+                                borderColor: '#111'
+                            }
+                        }
+                    }}
+                    color="primary"
+                >
+                    <InputLabel id="delivery-category">Category</InputLabel>
+                    <Select labelId="delivery-category" id="category" label="Category" value={category} onChange={handleChange} autoWidth>
+                        {dataCategory.map(({ categoryName }) => (
+                            <MenuItem value={categoryName} key={categoryName}>
+                                {categoryName}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Box>
+
+            {/* Price */}
+
             <Box>
                 <FormLabel
                     id="sort-price"

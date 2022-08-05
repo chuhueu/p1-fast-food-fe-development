@@ -28,6 +28,8 @@ const PageDelivery = () => {
                         }}
                         className="4k-desktop:max-w-[1200px] tablet:max-w-[600px] large-desktop:max-w-[1100px] tablet-lg:max-w-[780px]"
                     >
+                        {/* products */}
+
                         <DeleveryCategorySlider />
 
                         <RestaurantSilder slidePerViews={2} />

@@ -41,7 +41,7 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
 
     const handleShowCart = () => {
         setCart(!cart);
-        dispatch(showCart(cart));
+        //dispatch(showCart(cart));
     };
 
     return (

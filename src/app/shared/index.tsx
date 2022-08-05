@@ -14,6 +14,7 @@ export { default as CardSlider } from './card-slider/CardSider';
 export { default as CategorySlider } from './category-slider/CategorySlider';
 export { default as ImageSlider } from './image-slider/ImageSlider';
 export { default as RestaurantSilder } from './restaurant-slider/RestaurantSlider';
+
 // cart
 export { default as Cart } from './cart/Cart';
 

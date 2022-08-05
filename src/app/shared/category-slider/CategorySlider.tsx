@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 SwiperCore.use([Autoplay, Navigation]);
 
-import { Wine, Beer, Liquor } from '../../utils/dataImages';
+import { Bread, Burger, Drinks, Pizza, Sandwich, Beef } from '../../utils/dataImages';
 
 interface dataSlider {
     categoryName: string;
@@ -18,16 +18,28 @@ interface dataSlider {
 
 const dataHomeSlider: dataSlider[] = [
     {
-        categoryName: 'Wine',
-        categoryImg: Wine
+        categoryName: 'Bread',
+        categoryImg: Bread
     },
     {
-        categoryName: 'Beer',
-        categoryImg: Beer
+        categoryName: 'Burger',
+        categoryImg: Burger
     },
     {
-        categoryName: 'Liquor',
-        categoryImg: Liquor
+        categoryName: 'Pizza',
+        categoryImg: Pizza
+    },
+    {
+        categoryName: 'Sandwich',
+        categoryImg: Sandwich
+    },
+    {
+        categoryName: 'Drinks',
+        categoryImg: Drinks
+    },
+    {
+        categoryName: 'Beef',
+        categoryImg: Beef
     }
 ];
 
@@ -40,36 +52,26 @@ const CategorySlider: FC<StyleBtn> = ({ nextBtn, prevBtn }) => {
     return (
         <>
             <Swiper
-                loop={true}
-                slidesPerView={3}
-                slidesPerGroup={3}
+                slidesPerView={6}
+                slidesPerGroup={6}
+                spaceBetween={30}
                 loopFillGroupWithBlank={true}
+                // className="mySwiper"
+                loop={true}
+                loopedSlides={6}
                 autoplay={{
-                    delay: 1800,
-                    disableOnInteraction: false
+                    delay: 1800
                 }}
                 navigation={{
                     prevEl: `${prevBtn}`,
                     nextEl: `${nextBtn}`
                 }}
-                breakpoints={{
-                    400: {
-                        slidesPerView: 2
-                    },
-                    600: {
-                        slidesPerView: 4
-                    },
-                    960: {
-                        slidesPerView: 7
-                    }
-                }}
-                className="!flex"
             >
                 {dataHomeSlider.map(({ categoryImg, categoryName }) => (
                     <SwiperSlide key={categoryName}>
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-3 cursor-pointer">
                             <div className="flex justify-center items-center">
-                                <img src={categoryImg} className="h-28" />
+                                <img src={categoryImg} className="h-14" />
                             </div>
                             <Typography variant="caption" component="span">
                                 {categoryName}
