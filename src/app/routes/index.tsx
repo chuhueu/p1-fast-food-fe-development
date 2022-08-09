@@ -1,6 +1,6 @@
 import { HomePage, SignIn, SignUp } from '../components';
 
-import { PageDelivery } from '../screens';
+import { PageDelivery, PageProducts } from '../screens';
 
 export const Routes = [
     {
@@ -18,6 +18,12 @@ export const Routes = [
     },
     {
         path: '/delivery',
-        component: PageDelivery
+        component: PageDelivery,
+        Routes: [
+            {
+                path: '/delivery/best-foods',
+                component: PageProducts
+            }
+        ]
     }
 ];

@@ -1,3 +1,5 @@
+import { ActionTypes } from '../action-types/index';
+
 interface cartState {
     isShowCart: boolean;
 }
@@ -6,16 +8,14 @@ const initState: cartState = {
     isShowCart: false
 };
 
-type Action = { type: 'SHOW_CART'; payload: boolean };
-
 // Declare the type which you return if don't know, let it be any
 // eslint-disable-next-line default-param-last
-const cartReducer = (state: cartState = initState, action: Action): any => {
+const cartReducer = (state: cartState = initState, action: ActionTypes): any => {
     switch (action.type) {
         case 'SHOW_CART': {
             return {
                 ...state,
-                state: action.payload
+                isShowCart: action.payload
             };
         }
         default:

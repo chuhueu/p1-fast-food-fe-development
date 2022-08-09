@@ -5,7 +5,7 @@ import { PrimaryButton } from '../../shared';
 
 const dataCategory = [
     {
-        categoryName: 'Category'
+        categoryName: 'Choose options'
     },
     {
         categoryName: 'Burgers'
@@ -112,8 +112,7 @@ const FilterBar = () => {
                     }}
                     color="primary"
                 >
-                    <InputLabel id="delivery-category">Category</InputLabel>
-                    <Select labelId="delivery-category" id="category" label="Category" value={category} onChange={handleChange} autoWidth>
+                    <Select labelId="delivery-category" id="category" value={category} onChange={handleChange} autoWidth>
                         {dataCategory.map(({ categoryName }) => (
                             <MenuItem value={categoryName} key={categoryName}>
                                 {categoryName}
