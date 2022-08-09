@@ -20,3 +20,5 @@ export { default as Cart } from './cart/Cart';
 
 // filter
 export { default as FilterBar } from './filter-bar/FilterBar';
+// products
+export { default as ProductCard } from './product-card/ProductCard';

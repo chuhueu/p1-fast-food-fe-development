@@ -1,6 +1,8 @@
-function showCart(data: boolean): object {
+import { SHOW_CART } from '../action-types';
+
+function showCart(data: boolean): any {
     return {
-        type: 'cart/isShowCart',
+        type: SHOW_CART,
         payload: data
     };
 }

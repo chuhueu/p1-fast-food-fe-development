@@ -6,7 +6,7 @@ import { CategorySlider } from '../../../../shared';
 
 const DeleveryCategorySlider = () => {
     return (
-        <section className="relative mb-10">
+        <section className="relative my-10">
             <Container>
                 <CategorySlider nextBtn=".next-category-btn" prevBtn="" />
 
