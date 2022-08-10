@@ -3,6 +3,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ProductCard } from '../../shared';
 import React from 'react';
 
+import DetailProduct from './components/DetailProduct';
+
 const PageProducts = () => {
     return (
         <Container>
@@ -37,6 +39,8 @@ const PageProducts = () => {
             </Typography>
 
             <ProductCard />
+
+            <DetailProduct />
         </Container>
     );
 };
