@@ -14,7 +14,6 @@ const cartReducer = (state: cartState = initState, action: ActionTypes): any => 
     switch (action.type) {
         case 'SHOW_CART': {
             return {
-                ...state,
                 isShowCart: action.payload
             };
         }
