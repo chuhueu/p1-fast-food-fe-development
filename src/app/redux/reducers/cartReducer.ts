@@ -17,6 +17,16 @@ const cartReducer = (state: cartState = initState, action: ActionTypes): any => 
                 isShowCart: action.payload
             };
         }
+        // case 'DECREASE': {
+        //     return {
+        //         numberItem: action.payload
+        //     };
+        // }
+        // case 'INCREASE': {
+        //     return {
+        //         numberItem: action.payload
+        //     };
+        // }
         default:
             return state;
     }

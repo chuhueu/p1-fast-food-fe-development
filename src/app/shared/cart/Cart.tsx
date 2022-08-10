@@ -1,10 +1,11 @@
-import CartEmpty from './cart-empty/CartEmpty';
-
 import { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
+
+import CartEmpty from './cart-empty/CartEmpty';
+import CartItem from './cart-empty/CartItem';
+
 import { State } from '../../redux/reducers';
-import showCart from '../../redux/action-creators';
+import { showCart } from '../../redux/action-creators';
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -24,11 +25,13 @@ const Cart = () => {
             <div
                 className={
                     statusCart
-                        ? 'fixed right-0 top-0  w-[400px] h-screen bg-white z-[999] rounded-md translate-x-0  transition-all delay-75 ease-linear cursor-pointer opacity-1 visible '
-                        : 'fixed right-0 top-0  w-[400px] h-screen bg-white z-[999] rounded-md translate-x-full  transition-all delay-75 ease-linear cursor-pointer  opacity-0 invisible'
+                        ? 'fixed right-0 top-0  w-[400px] h-screen bg-white z-[999] rounded-tl-md rounded-bl-md translate-x-0  transition-all delay-75 ease-linear cursor-pointer opacity-1 visible '
+                        : 'fixed right-0 top-0  w-[400px] h-screen bg-white z-[999] rounded-tl-md rounded-bl-md translate-x-full  transition-all delay-75 ease-linear cursor-pointer  opacity-0 invisible'
                 }
             >
-                <CartEmpty closeCart={closeCart} />
+                <CartItem closeCart={closeCart} />
+
+                {/* <CartEmpty closeCart={closeCart} /> */}
             </div>
 
             <div className="relative">

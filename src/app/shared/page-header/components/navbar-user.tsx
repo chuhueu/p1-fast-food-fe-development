@@ -10,7 +10,7 @@ import { Typography, Avatar } from '@mui/material';
 
 import { State } from '../../../redux/reducers/';
 import { useDispatch, useSelector } from 'react-redux';
-import showCart from '../../../redux/action-creators';
+import { showCart } from '../../../redux/action-creators';
 
 const navItem = [
     {
