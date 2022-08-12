@@ -23,7 +23,7 @@ const PrimaryButton: React.FC<Props> = ({ border, bgcolor, color, children, heig
                 width,
                 color: color
             }}
-            className="!text-lg !font-semibold"
+            className="!text-lg !font-semibold flex justify-center items-center gap-2"
         >
             {children}
         </button>

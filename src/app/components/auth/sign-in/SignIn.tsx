@@ -21,14 +21,17 @@ const SignIn = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         width: '100%',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        marginTop: '30px'
                     }}
                 >
                     <Box
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '10px'
+                            gap: '10px',
+                            width: '80%',
+                            alignItems: 'center'
                         }}
                     >
                         <Typography
