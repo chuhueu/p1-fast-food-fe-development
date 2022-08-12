@@ -17,7 +17,9 @@ module.exports = {
                 'gray-blur': '#e5e5ea',
                 'gray-fade': '#f2f2f7',
                 'filter-bar': 'rgba(252, 252, 252, 1)',
-                overlay: 'rgba(0,0,0,.84)'
+                overlay: 'rgba(0,0,0,.84)',
+                fb: '#4267B2',
+                google: '#DB4437'
             }
         }
     },

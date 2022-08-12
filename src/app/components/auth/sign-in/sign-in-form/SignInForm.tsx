@@ -1,5 +1,7 @@
 import React from 'react';
-import { InputField } from '../../../../shared';
+import { InputField, PrimaryButton } from '../../../../shared';
+import GoogleIcon from '@mui/icons-material/Google';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -67,7 +69,7 @@ const SignInForm = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onHandleSubmit)} className="flex flex-col mt-4">
+            <form onSubmit={handleSubmit(onHandleSubmit)} className="flex flex-col mt-4 w-1/2">
                 {dataInput.map((item) => (
                     <InputField
                         register={register}
@@ -87,6 +89,41 @@ const SignInForm = () => {
                     }}
                 >
                     <AuthButton page="submit-signUp">Log In</AuthButton>
+                </Box>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        width: '100%',
+                        marginTop: '30px',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '16px'
+                    }}
+                >
+                    <PrimaryButton
+                        border="1px solid #111"
+                        bgcolor="transparent"
+                        height="50px"
+                        onClick={() => alert('done')}
+                        radius="30px"
+                        width="100%"
+                        color="#111"
+                    >
+                        Login with Google{''} <GoogleIcon className="!fill-google" />
+                    </PrimaryButton>
+
+                    <PrimaryButton
+                        border="1px solid #111"
+                        bgcolor="transparent"
+                        height="50px"
+                        onClick={() => alert('done')}
+                        radius="30px"
+                        width="100%"
+                        color="#111"
+                    >
+                        Login with Facebook{''} <FacebookIcon className="!fill-fb" />
+                    </PrimaryButton>
                 </Box>
             </form>
         </>
