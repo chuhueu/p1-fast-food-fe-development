@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Routes } from './routes';
 import { renderRoutes } from 'react-router-config';
 import AuthProvider from '../app/context/AuthContext';
@@ -6,7 +6,9 @@ import AuthProvider from '../app/context/AuthContext';
 function App() {
     return (
         <Router>
-            <AuthProvider>{renderRoutes(Routes)}</AuthProvider>
+            <Switch>
+                <AuthProvider>{renderRoutes(Routes)}</AuthProvider>
+            </Switch>
         </Router>
     );
 }
