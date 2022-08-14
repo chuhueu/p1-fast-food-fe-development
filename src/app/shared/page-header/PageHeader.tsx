@@ -18,8 +18,6 @@ const PageHeader = () => {
     const [showUserNav, setShowUserNav] = useState(false);
     const { user } = useContext(AuthContext);
 
-    console.log(user);
-
     const showNavbar = () => {
         setShowNav(true);
     };

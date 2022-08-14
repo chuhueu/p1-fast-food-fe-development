@@ -2,7 +2,7 @@ import React from 'react';
 import ItemProduct from './ItemProduct';
 
 const DetailProduct = () => {
-    const [showDetail, setShowDetail] = React.useState(true);
+    const [showDetail, setShowDetail] = React.useState(false);
 
     return (
         <>
@@ -17,7 +17,7 @@ const DetailProduct = () => {
                 <div
                     className={
                         showDetail
-                            ? 'w-1/3 h-5/6 z-10 m-auto p-5 rounded-md shadow-btnLogin bg-white transition-all delay-[.5s] ease-linear translate-y-0 visible opacity-100'
+                            ? 'w-2/3 h-5/6 z-10 m-auto p-5 rounded-md shadow-btnLogin bg-white transition-all delay-[.5s] ease-linear translate-y-0 visible opacity-100'
                             : 'w-2/3 h-5/6 z-10 m-auto p-5 rounded-md shadow-btnLogin bg-white transition-all delay-[.5s] ease-linear translate-y-[300%] invisible opacity-0'
                     }
                 >
