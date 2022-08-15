@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TextField, Typography } from '@mui/material';
+import { TextField, Typography, styled } from '@mui/material';
 
 interface IProp {
     id: string;
@@ -10,10 +10,22 @@ interface IProp {
     type: string;
 }
 
+const InputTextField = styled(TextField)`
+    & label.Mui-focused {
+        color: rgba(0, 0, 0, 0.87);
+    }
+    & .MuiOutlinedInput-root {
+        &.Mui-focused fieldset {
+            border-color: rgba(0, 0, 0, 0.87);
+            border-width: 1px;
+        }
+    }
+`;
+
 const InputField: FC<IProp> = ({ id, label, type, name, register, errors }) => {
     return (
         <>
-            <TextField
+            <InputTextField
                 id={id}
                 label={label}
                 type={type}

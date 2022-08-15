@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useContext, useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -8,9 +8,7 @@ import { SearchInput } from '../../../shared';
 import { Link, useLocation } from 'react-router-dom';
 import { Typography, Avatar } from '@mui/material';
 
-import { State } from '../../../redux/reducers/';
-import { useDispatch, useSelector } from 'react-redux';
-import { showCart } from '../../../redux/action-creators';
+import { AuthContext } from '../../../context/AuthContext';
 
 const navItem = [
     {
@@ -32,14 +30,13 @@ interface IProps {
 }
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
-    const dispatch = useDispatch();
-    const isShowCart: boolean = useSelector((state: State) => state.cart.isShowCart);
+    const {isShowCart, setIsShowCart} = useContext(AuthContext)
     const { pathname } = useLocation();
     const activeNav = pathname.replace('/', '');
     const [typeNav, setTypeNav] = useState(activeNav);
 
     const handleShowCart = () => {
-        isShowCart ? dispatch(showCart(false)) : dispatch(showCart(true));
+        setIsShowCart(!isShowCart);
     };
 
     return (

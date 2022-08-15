@@ -7,8 +7,9 @@ const AuthProvider = ({ children }) => {
         user: '',
         password: ''
     });
+    const [isShowCart, setIsShowCart] = useState(false);
 
-    return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user, setUser, isShowCart, setIsShowCart }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
