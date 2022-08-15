@@ -1,6 +1,6 @@
-import { ActionTypes } from '../action-types/index';
+import { AnyAction } from 'redux';
 
-interface cartState {
+export interface cartState {
     isShowCart: boolean;
 }
 
@@ -10,26 +10,14 @@ const initState: cartState = {
 
 // Declare the type which you return if don't know, let it be any
 // eslint-disable-next-line default-param-last
-const cartReducer = (state: cartState = initState, action: ActionTypes): any => {
+export const showCartReducer = (state: cartState = initState, action: AnyAction): any => {
     switch (action.type) {
         case 'SHOW_CART': {
             return {
                 isShowCart: action.payload
             };
         }
-        // case 'DECREASE': {
-        //     return {
-        //         numberItem: action.payload
-        //     };
-        // }
-        // case 'INCREASE': {
-        //     return {
-        //         numberItem: action.payload
-        //     };
-        // }
         default:
             return state;
     }
 };
-
-export default cartReducer;

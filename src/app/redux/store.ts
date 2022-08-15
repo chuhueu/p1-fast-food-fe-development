@@ -1,11 +1,15 @@
-import { applyMiddleware, createStore } from 'redux';
-import reducers from './reducers/index';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-// import { composeWithDevTools } from 'redux-devtools-extension';
+import { showCartReducer } from './reducers/cartReducer';
 
-// const composedEnhencers = composeWithDevTools();
+const reducers = combineReducers({
+    showCart: showCartReducer
+});
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+const middleware = [thunk];
 
-export default store;
+export const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(...middleware)));
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
