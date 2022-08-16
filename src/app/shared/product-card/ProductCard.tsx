@@ -1,7 +1,10 @@
-import { Container, Typography, Box, Grid, styled } from '@mui/material';
+import { Container, Typography, Box, Grid, styled, CircularProgress } from '@mui/material';
 
 import { CoronaBeer, Sapporo, SmirnoffIce, CoorLightBeer } from '../../utils/dataImages';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
 
 interface ImageSlideItem {
     img: string;
@@ -45,12 +48,39 @@ const Img = styled('img')({
 });
 
 const ProductCard = () => {
+    const { setShowDetail } = useContext(AuthContext);
+    const handleShowDetailProduct = () => {
+        setShowDetail(true);
+    };
+
     return (
         <>
+            <Typography
+                component="h2"
+                variant="h4"
+                sx={{
+                    fontWeight: '600',
+                    textAlign: 'center',
+                    marginTop: '20px',
+                    marginBottom: '20px'
+                }}
+            >
+                Best foods
+            </Typography>
             <Container>
+                {/* <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '250px'
+                    }}
+                >
+                    <CircularProgress />
+                </Box> */}
                 <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {dataImageSlide.map((item) => (
-                        <Grid item xs={12} sm={6} md={6} key={item.heading}>
+                        <Grid item xs={12} sm={6} md={6} key={item.heading} onClick={() => handleShowDetailProduct()}>
                             <Box className="!justify-start  border-2 border-solid bg-gray-fade rounded-md cursor-pointer">
                                 <Box
                                     sx={{

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageHeader, FilterBar, RestaurantSilder } from '../../shared';
 import { Container, Box } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 // import DeliveryPurchase from './components/delivery-purchase/DeliveryPurchase';
 
@@ -9,6 +10,8 @@ import DeleveryCategorySlider from './components/delivery-category-slide/Delever
 import { PageProducts } from '../index';
 
 const PageDelivery = () => {
+    const { pathname } = useLocation();
+    const name = pathname.slice(10);
     return (
         <>
             <PageHeader />
@@ -31,15 +34,19 @@ const PageDelivery = () => {
                         }}
                         className="4k-desktop:max-w-[1200px] tablet:max-w-[600px] large-desktop:max-w-[1100px] tablet-lg:max-w-[780px] py-5 px-3"
                     >
-                        {/* products */}
+                        {name === '' ? (
+                            <>
+                                {/* products */}
+                                <DeleveryCategorySlider />
 
-                        <DeleveryCategorySlider />
-
-                        <RestaurantSilder slidePerViews={2} />
-
-                        {/* <DeliveryPurchase /> */}
-
-                        <PageProducts />
+                                <RestaurantSilder slidePerViews={2} />
+                            </>
+                        ) : (
+                            <>
+                                {/* <DeliveryPurchase /> */}
+                                <PageProducts />
+                            </>
+                        )}
                     </Box>
                 </Box>
             </Container>

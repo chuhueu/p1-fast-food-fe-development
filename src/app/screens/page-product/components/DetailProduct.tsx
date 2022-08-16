@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ItemProduct from './ItemProduct';
+import { AuthContext } from '../../../context/AuthContext';
 
 const DetailProduct = () => {
-    const [showDetail, setShowDetail] = React.useState(false);
+    const { showDetail } = useContext(AuthContext);
 
     return (
         <>

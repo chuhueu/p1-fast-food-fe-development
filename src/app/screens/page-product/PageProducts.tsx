@@ -1,11 +1,17 @@
-import { Container, Typography, Grid, Paper } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ProductCard } from '../../shared';
 import React from 'react';
 
 import DetailProduct from './components/DetailProduct';
+import { useHistory } from 'react-router-dom';
 
 const PageProducts = () => {
+    const history = useHistory();
+    const backToDeliveryPage = () => {
+        history.goBack();
+    };
+
     return (
         <Container>
             <Typography
@@ -17,6 +23,7 @@ const PageProducts = () => {
                     right: '0',
                     cursor: 'pointer'
                 }}
+                onClick={() => backToDeliveryPage()}
             >
                 Back to Delivery {''}
                 <ArrowBackIcon
@@ -24,18 +31,6 @@ const PageProducts = () => {
                         fontSize: '16px'
                     }}
                 />
-            </Typography>
-            <Typography
-                component="h2"
-                variant="h4"
-                sx={{
-                    fontWeight: '600',
-                    textAlign: 'center',
-                    marginTop: '20px',
-                    marginBottom: '20px'
-                }}
-            >
-                Best Foods
             </Typography>
 
             <ProductCard />

@@ -22,6 +22,7 @@ export const Routes = [
         Routes: [
             {
                 path: '/delivery/best-foods',
+                exact: true,
                 component: PageProducts
             }
         ]

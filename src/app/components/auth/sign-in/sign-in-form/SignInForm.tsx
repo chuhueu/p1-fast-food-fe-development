@@ -1,7 +1,8 @@
 import React from 'react';
 import { InputField, PrimaryButton } from '../../../../shared';
-import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import GoogleIcon from '@mui/icons-material/Google';
+import { GoogleLogin } from 'react-google-login';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -67,6 +68,14 @@ const SignInForm = () => {
         history.push('/delivery');
     };
 
+    const handleLoginGG = (response: any) => {
+        console.log(response);
+    };
+
+    const handleFailureGG = (res: any) => {
+        console.log(res);
+    };
+
     return (
         <>
             <form onSubmit={handleSubmit(onHandleSubmit)} className="flex flex-col mt-4 w-1/2">
@@ -101,17 +110,25 @@ const SignInForm = () => {
                         gap: '16px'
                     }}
                 >
-                    <PrimaryButton
-                        border="1px solid #111"
-                        bgcolor="transparent"
-                        height="50px"
-                        onClick={() => alert('done')}
-                        radius="30px"
-                        width="100%"
-                        color="#111"
-                    >
-                        Login with Google{''} <GoogleIcon className="!fill-google" />
-                    </PrimaryButton>
+                    <GoogleLogin
+                        clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                        onSuccess={handleLoginGG}
+                        onFailure={handleFailureGG}
+                        cookiePolicy={'single_host_origin'}
+                        render={(renderProps) => (
+                            <PrimaryButton
+                                border="1px solid #111"
+                                bgcolor="transparent"
+                                height="50px"
+                                onClick={renderProps.onClick}
+                                radius="30px"
+                                width="100%"
+                                color="#111"
+                            >
+                                Login with Google{''} <GoogleIcon className="!fill-google" />
+                            </PrimaryButton>
+                        )}
+                    />
 
                     <PrimaryButton
                         border="1px solid #111"
