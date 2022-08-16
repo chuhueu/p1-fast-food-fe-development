@@ -1,11 +1,15 @@
 import React from 'react';
-import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { PrimaryButton } from '../../shared';
+import { useHistory } from 'react-router-dom';
 
 const dataCategory = [
     {
         categoryName: 'Choose options'
+    },
+    {
+        categoryName: 'Best Foods'
     },
     {
         categoryName: 'Burgers'
@@ -20,9 +24,13 @@ const dataCategory = [
 
 const FilterBar = () => {
     const [category, setCategory] = React.useState(dataCategory[0].categoryName);
+    const history = useHistory();
 
     const handleChange = (event: SelectChangeEvent) => {
-        setCategory(event.target.value);
+        const value = event.target.value;
+        const pathName = value.toLocaleLowerCase().replace(' ', '-');
+        setCategory(value);
+        history.push(`/delivery/${pathName}`);
     };
 
     return (
@@ -38,7 +46,7 @@ const FilterBar = () => {
                 Filters
             </Typography>
 
-            {/* Type */}
+            {/* Type
 
             <Box
                 sx={{
@@ -81,7 +89,7 @@ const FilterBar = () => {
                         label="Category"
                     />
                 </RadioGroup>
-            </Box>
+            </Box> */}
 
             {/* Category */}
 

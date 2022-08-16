@@ -30,7 +30,7 @@ interface IProps {
 }
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
-    const {isShowCart, setIsShowCart} = useContext(AuthContext)
+    const { isShowCart, setIsShowCart } = useContext(AuthContext);
     const { pathname } = useLocation();
     const activeNav = pathname.replace('/', '');
     const [typeNav, setTypeNav] = useState(activeNav);
@@ -59,7 +59,7 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                     </ul>
                 </nav>
                 <div className="flex justify-between gap-5">
-                    <SearchInput placeholder="Beer, Wine, Food, etc" />
+                    {/* <SearchInput placeholder="Beer, Wine, Food, etc" /> */}
 
                     <div className="flex gap-5">
                         <div

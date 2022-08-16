@@ -8,8 +8,13 @@ const AuthProvider = ({ children }) => {
         password: ''
     });
     const [isShowCart, setIsShowCart] = useState(false);
+    const [showDetail, setShowDetail] = React.useState(false);
 
-    return <AuthContext.Provider value={{ user, setUser, isShowCart, setIsShowCart }}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={{ user, setUser, isShowCart, setIsShowCart, showDetail, setShowDetail }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export default AuthProvider;

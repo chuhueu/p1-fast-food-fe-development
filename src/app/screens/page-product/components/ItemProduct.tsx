@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import { PrimaryButton } from '../../../shared';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,7 +7,15 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { CoorLightBeer } from '../../../utils/dataImages';
 
+import { AuthContext } from '../../../context/AuthContext';
+
 const ItemProduct = () => {
+    const { setShowDetail } = useContext(AuthContext);
+
+    const closeDetailProduct = () => {
+        setShowDetail(false);
+    };
+
     return (
         <>
             <Box
@@ -148,7 +156,7 @@ const ItemProduct = () => {
                         </Typography>
                     </Box>
                     <Box>
-                        <CloseIcon className="cursor-pointer" fontSize="large" />
+                        <CloseIcon className="cursor-pointer" fontSize="large" onClick={() => closeDetailProduct()} />
                     </Box>
                 </Box>
 
