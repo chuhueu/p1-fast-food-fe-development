@@ -3,10 +3,7 @@ import React, { useState } from 'react';
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState({
-        user: '',
-        password: ''
-    });
+    const [user, setUser] = useState();
     const [isShowCart, setIsShowCart] = useState(false);
     const [showDetail, setShowDetail] = React.useState(false);
 
