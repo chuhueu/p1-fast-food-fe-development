@@ -3,10 +3,18 @@ import { AnyAction } from 'redux';
 import { RootState } from '../store';
 import axios from '../../axios';
 
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED } from '../constants/userConstants';
+import {
+    USER_LOGIN_REQUEST,
+    USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAILED,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS,
+    USER_REGISTER_FAILED,
+    USER_LOGOUT
+} from '../constants/userConstants';
 
 export const login =
-    (email: string, password: string): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+    (email: string, password: string): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
         try {
             dispatch({
@@ -32,4 +40,50 @@ export const login =
                 payload: error
             });
         }
+    };
+
+export const registerUser =
+    (username: string, email: string, password: string): any =>
+    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
+        try {
+            dispatch({
+                type: USER_REGISTER_REQUEST
+            });
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            // fetch data from Backend
+            const { data } = await axios.post(
+                '/auth/register',
+                {
+                    username,
+                    email,
+                    password
+                },
+                config
+            );
+
+            dispatch({
+                type: USER_REGISTER_SUCCESS,
+                payload: data
+            });
+            localStorage.setItem('userInfo', JSON.stringify(data));
+        } catch (e) {
+            dispatch({
+                type: USER_REGISTER_FAILED,
+                payload: e
+            });
+        }
+    };
+
+export const logout =
+    (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
+        dispatch({
+            type: USER_LOGOUT
+        });
+        localStorage.removeItem('userInfo');
     };
