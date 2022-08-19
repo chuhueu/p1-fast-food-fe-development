@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { InputField, PrimaryButton } from '../../../../shared';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GoogleIcon from '@mui/icons-material/Google';
 import { GoogleLogin } from 'react-google-login';
+import GoogleButton from 'react-google-button';
 import axios from '../../../../axios';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -115,7 +114,7 @@ const SignInForm = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                <form onSubmit={handleSubmit(onHandleSubmit)} className="flex flex-col mt-4 w-1/2">
+                <form onSubmit={handleSubmit(onHandleSubmit)} className="flex flex-col mt-4 w-1/2 phone:w-full tablet:w-4/5">
                     {dataInput.map((item) => (
                         <InputField
                             register={register}
@@ -137,7 +136,7 @@ const SignInForm = () => {
                             variant="caption"
                             component="span"
                         >
-                            Username or Email are incorrect! Please try again
+                            Email or Password are incorrect! Please try again
                         </Typography>
                     )}
 
@@ -165,22 +164,10 @@ const SignInForm = () => {
                             onSuccess={handleLoginGG}
                             onFailure={handleFailureGG}
                             cookiePolicy={'single_host_origin'}
-                            render={(renderProps) => (
-                                <PrimaryButton
-                                    border="1px solid #111"
-                                    bgcolor="transparent"
-                                    height="50px"
-                                    onClick={renderProps.onClick}
-                                    radius="30px"
-                                    width="100%"
-                                    color="#111"
-                                >
-                                    Login with Google{''} <GoogleIcon className="!fill-google" />
-                                </PrimaryButton>
-                            )}
+                            render={(renderProps) => <GoogleButton onClick={renderProps.onClick} />}
                         />
 
-                        <PrimaryButton
+                        {/* <PrimaryButton
                             border="1px solid #111"
                             bgcolor="transparent"
                             height="50px"
@@ -190,7 +177,7 @@ const SignInForm = () => {
                             color="#111"
                         >
                             Login with Facebook{''} <FacebookIcon className="!fill-fb" />
-                        </PrimaryButton>
+                        </PrimaryButton> */}
                     </Box>
                 </form>
             )}
