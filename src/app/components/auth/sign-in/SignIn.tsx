@@ -48,7 +48,8 @@ const SignIn = () => {
                             component="span"
                             variant="body1"
                             sx={{
-                                fontWeight: '500'
+                                fontWeight: '500',
+                                textAlign: 'center'
                             }}
                         >
                             Please enter your email and password to continue

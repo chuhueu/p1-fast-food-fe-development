@@ -23,8 +23,6 @@ const PageHeader = () => {
 
     const { userInfo } = userLogin;
 
-    console.log(userInfo);
-
     const showNavbar = () => {
         setShowNav(true);
     };
