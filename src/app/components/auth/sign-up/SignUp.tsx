@@ -4,6 +4,8 @@ import './sign-up.scss';
 import { Logo } from '../../../utils/dataImages';
 import SignUpForm from './sign-up-form/SignUpForm';
 
+import { Link } from 'react-router-dom';
+
 const SignUp = () => {
     return (
         <section>
@@ -51,6 +53,19 @@ const SignUp = () => {
                             Please add the following information
                         </Typography>
                         <SignUpForm />
+
+                        <Typography
+                            variant="body1"
+                            component="span"
+                            sx={{
+                                textAlign: 'center'
+                            }}
+                        >
+                            Already have an account? {''}
+                            <Link to="/sign-in" className="text-yellow-light hover:decoration-black">
+                                Login
+                            </Link>
+                        </Typography>
                     </Box>
                 </Box>
             </Container>

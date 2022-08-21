@@ -15,7 +15,7 @@ import { RootState } from '../store';
 import axios from '../../axios';
 
 export const addToCart =
-    (product: any, name: any, image: any, price: any, discount: any, quantity: number): any =>
+    (product: any, name: any, image: any, price: any, quantity: number): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
         try {
             dispatch({ type: ADD_TO_CART_REQUEST });
@@ -31,7 +31,6 @@ export const addToCart =
                 name,
                 image,
                 price,
-                discount,
                 quantity
             });
 

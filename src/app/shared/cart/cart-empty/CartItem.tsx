@@ -9,9 +9,6 @@ import { Sapporo } from '../../../utils/dataImages';
 import { Box, Typography, IconButton } from '@mui/material';
 
 import { PrimaryButton } from '../../index';
-// import { increase } from '../../../redux/action-creators';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { State } from '../../../redux/reducers';
 
 interface Props {
     closeCart: Function;

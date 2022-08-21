@@ -5,7 +5,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { Logo } from '../../../utils/dataImages';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { AuthContext } from '../../../context/AuthContext';
+
+// redux
+import { logout } from '../../../redux/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IProps {
     closeUserNav: Function;
@@ -13,6 +18,13 @@ interface IProps {
 }
 
 const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
+    const dispatch = useDispatch();
+    const { user } = React.useContext(AuthContext);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
     return (
         <>
             <div
@@ -25,8 +37,19 @@ const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
                 <div className="flex items-center justify-end mt-5 mr-5 cursor-pointer" onClick={() => closeUserNav()}>
                     <CloseIcon />
                 </div>
-
-                <div className="flex flex-col ml-20 justify-between h-[90%] phone-sm:ml-10 gap-5">
+                {user && (
+                    <Typography
+                        variant="h4"
+                        component="h2"
+                        sx={{
+                            marginLeft: '50px',
+                            marginBottom: '20px'
+                        }}
+                    >
+                        Hi, {user.username}
+                    </Typography>
+                )}
+                <div className="flex flex-col ml-20 justify-between h-[80%] phone-sm:ml-10 gap-5">
                     <ul className="flex flex-col items-stretch h-full justify-between">
                         <Box
                             sx={{
@@ -47,7 +70,7 @@ const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
                         </Box>
 
                         <Box>
-                            <Link to="/" className="text-xl font-medium">
+                            <Link to="/" className="text-xl font-medium" onClick={() => handleLogout()}>
                                 Log out
                             </Link>
                         </Box>
