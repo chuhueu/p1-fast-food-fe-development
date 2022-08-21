@@ -80,7 +80,7 @@ export const registerUser =
     };
 
 export const logout =
-    (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+    (): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
         dispatch({
             type: USER_LOGOUT

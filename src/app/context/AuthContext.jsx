@@ -3,7 +3,14 @@ import React, { useState } from 'react';
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState();
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const initValues = {
+        username: userInfo?.username | undefined,
+        email: userInfo?.email | undefined,
+        avatar: userInfo?.avatar | undefined
+    };
+    const [user, setUser] = useState(initValues);
+
     const [isShowCart, setIsShowCart] = useState(false);
     const [showDetail, setShowDetail] = React.useState(false);
 

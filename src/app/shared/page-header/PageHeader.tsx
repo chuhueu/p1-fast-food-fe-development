@@ -7,7 +7,7 @@ import AuthButton from '../auth-button/AuthButton';
 import NavbarHeader from './components/navbar-header';
 import UserHeader from './components/user-header';
 import NavbarUser from './components/navbar-user';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -15,6 +15,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { userState } from '../../redux/reducers/userReducer';
+// test
+import { AuthContext } from '../../context/AuthContext';
 
 const PageHeader = () => {
     const [showNav, setShowNav] = useState(false);
@@ -22,6 +24,8 @@ const PageHeader = () => {
     const userLogin = useSelector<RootState, userState>((state) => state.userLogin);
 
     const { userInfo } = userLogin;
+
+    const { user } = useContext(AuthContext);
 
     const showNavbar = () => {
         setShowNav(true);
@@ -47,7 +51,7 @@ const PageHeader = () => {
                         <img src={Logo} alt="logo" className="w-40" />
 
                         {/* user header */}
-                        {userInfo ? (
+                        {user ? (
                             <NavbarUser showNavbarUser={showUserNavbar} />
                         ) : (
                             <div className=" items-center gap-5 flex">
@@ -67,7 +71,7 @@ const PageHeader = () => {
                         )}
 
                         {/* pre-login header */}
-                        {userInfo ? (
+                        {user ? (
                             <UserHeader showUserNav={showUserNav} closeUserNav={closeUserNavbar} />
                         ) : (
                             <NavbarHeader showNav={showNav} closeNavbar={closeNavbar} />

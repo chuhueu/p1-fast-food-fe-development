@@ -30,7 +30,7 @@ interface IProps {
 }
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
-    const { isShowCart, setIsShowCart } = useContext(AuthContext);
+    const { user, isShowCart, setIsShowCart } = useContext(AuthContext);
     const { pathname } = useLocation();
     const activeNav = pathname.replace('/', '');
     const [typeNav, setTypeNav] = useState(activeNav);
@@ -85,7 +85,7 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                         </div>
 
                         <div className="flex justify-center items-center cursor-pointer">
-                            <Avatar />
+                            {user ? <Avatar src={user.image} /> : <Avatar />}
                         </div>
                         <div className="flex justify-center items-center cursor-pointer" onClick={() => showNavbarUser()}>
                             <MenuIcon

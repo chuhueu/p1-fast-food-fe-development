@@ -1,27 +1,51 @@
-import { useContext, useEffect } from 'react';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import { useContext, useState } from 'react';
+import { Box, Typography, CircularProgress, IconButton } from '@mui/material';
 import { PrimaryButton } from '../../../shared';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-
-import { CoorLightBeer } from '../../../utils/dataImages';
 
 import { AuthContext } from '../../../context/AuthContext';
 
 // redux
 import { RootState } from '../../../redux/store';
 import { detailProductState } from '../../../redux/reducers/productReducer';
-import { useSelector } from 'react-redux';
+import { cartState } from '../../../redux/reducers/cartReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/actions/cartActions';
+
+interface productType {
+    product: string;
+    name: string;
+    image: string;
+    price: number;
+    quantity: number;
+}
 
 const ItemProduct = () => {
     const detailProduct = useSelector<RootState, detailProductState>((state) => state.detailProduct);
+    const cartItem = useSelector<RootState, cartState>((state) => state.cartItem);
+    const dispatch = useDispatch();
+    const [qntProduct, setQntProduct] = useState(1);
     const { setShowDetail } = useContext(AuthContext);
 
     const { isFetching, productInfo } = detailProduct;
+    // quantity
+    const handleDecreaseProduct = () => {
+        setQntProduct((prev) => (prev === 1 ? prev : prev - 1));
+    };
 
+    const handleIncreaseProduct = () => {
+        setQntProduct((prev) => prev + 1);
+    };
+    // close Product
     const closeDetailProduct = () => {
         setShowDetail(false);
+    };
+    // add to Cart
+    const handleAddToCart = () => {
+        //dispatch(addToCart(productInfo, productInfo?.name, productInfo?.image, productInfo?.price, qntProduct));
+        console.log(dispatch(addToCart(productInfo?._id, productInfo?.name, productInfo?.image, productInfo?.price, qntProduct)));
     };
 
     return (
@@ -121,20 +145,13 @@ const ItemProduct = () => {
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            justifyContent: 'space-between'
+                                            justifyContent: 'space-between',
+                                            gap: '6px'
                                         }}
                                     >
-                                        <PrimaryButton
-                                            border="1px solid #111"
-                                            bgcolor="transparent"
-                                            height="max-content"
-                                            onClick={() => console.log('-')}
-                                            radius="16px"
-                                            width="40px"
-                                            color="#111"
-                                        >
+                                        <IconButton onClick={() => handleDecreaseProduct()}>
                                             <RemoveIcon />
-                                        </PrimaryButton>
+                                        </IconButton>
 
                                         <Typography
                                             variant="h4"
@@ -148,20 +165,12 @@ const ItemProduct = () => {
                                             }}
                                             className="text-yellow-light"
                                         >
-                                            1
+                                            {qntProduct}
                                         </Typography>
 
-                                        <PrimaryButton
-                                            border="1px solid #111"
-                                            bgcolor="transparent"
-                                            height="max-content"
-                                            onClick={() => console.log('+')}
-                                            radius="16px"
-                                            width="40px"
-                                            color="#111"
-                                        >
+                                        <IconButton onClick={() => handleIncreaseProduct()}>
                                             <AddIcon />
-                                        </PrimaryButton>
+                                        </IconButton>
                                     </Box>
                                 </Box>
                                 <Typography
@@ -191,7 +200,7 @@ const ItemProduct = () => {
                                 border="none"
                                 bgcolor="#FFCE00"
                                 height="50px"
-                                onClick={() => console.log(productInfo)}
+                                onClick={() => handleAddToCart()}
                                 radius="12px"
                                 width="40%"
                                 color="#FFF"
