@@ -2,16 +2,21 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import { cartItemReducer } from './reducers/cartReducer';
+import { createCartReducer, cartItemReducer, getCartReducer, removeCartReducer, updateQtyCartReducer } from './reducers/cartReducer';
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer';
-import { listProductReducer, detailProductReducer } from './reducers/productReducer';
+import { listProductReducer, detailProductReducer, listFilterProductReducer } from './reducers/productReducer';
 
 const reducers = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     listProduct: listProductReducer,
     detailProduct: detailProductReducer,
-    cartItem: cartItemReducer
+    filterProduct: listFilterProductReducer,
+    createCart: createCartReducer,
+    cartItem: cartItemReducer,
+    getCart: getCartReducer,
+    removeCart: removeCartReducer,
+    updateQty: updateQtyCartReducer
 });
 
 const middleware = [thunk];

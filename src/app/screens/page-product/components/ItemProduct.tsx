@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, IconButton } from '@mui/material';
 import { PrimaryButton } from '../../../shared';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,9 +10,8 @@ import { AuthContext } from '../../../context/AuthContext';
 // redux
 import { RootState } from '../../../redux/store';
 import { detailProductState } from '../../../redux/reducers/productReducer';
-import { cartState } from '../../../redux/reducers/cartReducer';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../../../redux/actions/cartActions';
+import { addToCart, getCart } from '../../../redux/actions/cartActions';
 
 interface productType {
     product: string;
@@ -24,7 +23,6 @@ interface productType {
 
 const ItemProduct = () => {
     const detailProduct = useSelector<RootState, detailProductState>((state) => state.detailProduct);
-    const cartItem = useSelector<RootState, cartState>((state) => state.cartItem);
     const dispatch = useDispatch();
     const [qntProduct, setQntProduct] = useState(1);
     const { setShowDetail } = useContext(AuthContext);
@@ -43,9 +41,9 @@ const ItemProduct = () => {
         setShowDetail(false);
     };
     // add to Cart
-    const handleAddToCart = () => {
-        //dispatch(addToCart(productInfo, productInfo?.name, productInfo?.image, productInfo?.price, qntProduct));
-        console.log(dispatch(addToCart(productInfo?._id, productInfo?.name, productInfo?.image, productInfo?.price, qntProduct)));
+    const handleAddToCart = async () => {
+        await dispatch(addToCart(productInfo, productInfo?.name, productInfo?.image, productInfo?.price, qntProduct));
+        dispatch(getCart());
     };
 
     return (
