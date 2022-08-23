@@ -5,10 +5,10 @@ import { FC, useState } from 'react';
 
 const Search = styled('div')(() => ({
     position: 'relative',
-    background: '#ffffff',
-    borderRadius: '10px',
+    background: 'rgba(145, 158, 171, 0.08)',
+    borderRadius: '16px',
     '&:hover': {
-        backgroundColor: '#ffffff'
+        backgroundColor: 'rgba(145, 158, 171, 0.08)'
     },
     marginLeft: 0,
     width: '100%'

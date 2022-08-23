@@ -45,7 +45,7 @@ const PageHeader = () => {
 
     return (
         <>
-            <div className="relative">
+            <div className="relative w-full">
                 <Container>
                     <div className="flex items-center justify-between h-25 pt-5">
                         <img src={Logo} alt="logo" className="w-40" />
