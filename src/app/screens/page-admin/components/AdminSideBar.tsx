@@ -3,8 +3,14 @@ import React from 'react';
 import { Box, Avatar, Typography } from '@mui/material';
 import { smallLogo } from '../../../utils/dataImages';
 import { ListItem } from '../../../shared';
+//redux
+import { RootState } from '../../../redux/store';
+import { userState } from '../../../redux/reducers/userReducer';
+import { useSelector } from 'react-redux';
 
 const AdminSideBar = () => {
+    const userData = useSelector<RootState, userState>((state) => state.userLogin);
+    const { userInfo } = userData;
     return (
         <>
             <Box
@@ -35,7 +41,7 @@ const AdminSideBar = () => {
                             cursor: 'pointer'
                         }}
                     >
-                        <Avatar />
+                        <Avatar src={userInfo?.avatar} />
 
                         <Box
                             sx={{
@@ -49,7 +55,7 @@ const AdminSideBar = () => {
                                     fontWeight: '600'
                                 }}
                             >
-                                Le Hieu
+                                {userInfo?.username}
                             </Typography>
 
                             <Typography

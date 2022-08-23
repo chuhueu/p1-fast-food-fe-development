@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 export default function ListItem() {
     const history = useHistory();
-    const [selectedIndex, setSelectedIndex] = useState(1);
+
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleListItemClick = (event: any, index: number) => {
         const element = event.target;

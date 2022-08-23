@@ -25,27 +25,13 @@ const ProductCard = () => {
     const filterProduct = useSelector<RootState, filterProductState>((state) => state.filterProduct);
     const dispatch = useDispatch();
     const { setShowDetail } = useContext(AuthContext);
-    const { productInfo } = products;
+
     const { filterProductInfo, isFetching } = filterProduct;
 
     const handleShowDetailProduct = (data: any) => {
         dispatch(getDetailProduct(data));
         setShowDetail(true);
     };
-
-    useEffect(() => {
-        // getFilterProduct({
-        //     category: null,
-        //     type: null,
-        //     min:,
-        //     max,
-        //     rating,
-        //     pageNumber,
-        //     sortOrder,
-        // })
-        dispatch(getListProduct());
-        console.log(filterProductInfo);
-    }, [filterProductInfo]);
 
     return (
         <>

@@ -7,6 +7,7 @@ import AuthButton from '../auth-button/AuthButton';
 import NavbarHeader from './components/navbar-header';
 import UserHeader from './components/user-header';
 import NavbarUser from './components/navbar-user';
+import NavbarAdmin from './components/navbar-admin';
 import { useState, useContext } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -16,7 +17,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { userState } from '../../redux/reducers/userReducer';
 // test
-import { AuthContext } from '../../context/AuthContext';
 
 const PageHeader = () => {
     const [showNav, setShowNav] = useState(false);
@@ -24,8 +24,6 @@ const PageHeader = () => {
     const userLogin = useSelector<RootState, userState>((state) => state.userLogin);
 
     const { userInfo } = userLogin;
-
-    const { user } = useContext(AuthContext);
 
     const showNavbar = () => {
         setShowNav(true);
@@ -51,8 +49,12 @@ const PageHeader = () => {
                         <img src={Logo} alt="logo" className="w-40" />
 
                         {/* user header */}
-                        {user ? (
-                            <NavbarUser showNavbarUser={showUserNavbar} />
+                        {userInfo ? (
+                            userInfo?.role === 'ROLE_MEMBER' ? (
+                                <NavbarUser showNavbarUser={showUserNavbar} />
+                            ) : (
+                                <></>
+                            )
                         ) : (
                             <div className=" items-center gap-5 flex">
                                 <ul className="flex items-center font-bold gap-6 text-xl cursor-pointer tablet:hidden">
@@ -71,8 +73,12 @@ const PageHeader = () => {
                         )}
 
                         {/* pre-login header */}
-                        {user ? (
-                            <UserHeader showUserNav={showUserNav} closeUserNav={closeUserNavbar} />
+                        {userInfo ? (
+                            userInfo.role !== 'ROLE_MEMBER' ? (
+                                <NavbarAdmin />
+                            ) : (
+                                <UserHeader showUserNav={showUserNav} closeUserNav={closeUserNavbar} />
+                            )
                         ) : (
                             <NavbarHeader showNav={showNav} closeNavbar={closeNavbar} />
                         )}

@@ -6,9 +6,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Logo } from '../../../utils/dataImages';
 
 import { Box, Typography } from '@mui/material';
-import { AuthContext } from '../../../context/AuthContext';
 
 // redux
+import { RootState } from '../../../redux/store';
+import { userState } from '../../../redux/reducers/userReducer';
 import { logout } from '../../../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,8 +19,9 @@ interface IProps {
 }
 
 const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
+    const userData = useSelector<RootState, userState>((state) => state.userLogin);
+    const { userInfo } = userData;
     const dispatch = useDispatch();
-    const { user } = React.useContext(AuthContext);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -37,7 +39,7 @@ const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
                 <div className="flex items-center justify-end mt-5 mr-5 cursor-pointer" onClick={() => closeUserNav()}>
                     <CloseIcon />
                 </div>
-                {user && (
+                {userInfo && (
                     <Typography
                         variant="h4"
                         component="h2"
@@ -46,7 +48,7 @@ const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
                             marginBottom: '20px'
                         }}
                     >
-                        Hi, {user.username}
+                        Hi, {userInfo?.username}
                     </Typography>
                 )}
                 <div className="flex flex-col ml-20 justify-between h-[80%] phone-sm:ml-10 gap-5">
