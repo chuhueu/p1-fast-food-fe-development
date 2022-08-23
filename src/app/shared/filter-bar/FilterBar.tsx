@@ -1,13 +1,13 @@
 import React from 'react';
 import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { PrimaryButton } from '../../shared';
+//import { PrimaryButton } from '../../shared';
 import { useHistory } from 'react-router-dom';
 // redux
 import { RootState } from '../../redux/store';
-import { filterProductState } from '../../redux/reducers/productReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilterProduct } from '../../redux/actions/productActions';
+import { getListCategory } from '../../redux/actions/categoryActions';
 
 const dataCategory = [
     {
@@ -29,7 +29,6 @@ const dataCategory = [
 
 const FilterBar = () => {
     const dispatch = useDispatch();
-    const filterProduct = useSelector<RootState, filterProductState>((state) => state.filterProduct);
 
     const [category, setCategory] = React.useState(dataCategory[0].categoryName);
     const history = useHistory();
@@ -42,8 +41,8 @@ const FilterBar = () => {
             getFilterProduct({
                 category: pathName,
                 type: null,
-                min: 0,
-                max: 1000,
+                min: 1,
+                max: 50,
                 rating: null,
                 pageNumber: null,
                 sortOrder: null
@@ -96,7 +95,7 @@ const FilterBar = () => {
                 );
                 break;
             default:
-                break;
+                dispatch(getListCategory());
         }
     };
     return (
@@ -190,7 +189,7 @@ const FilterBar = () => {
                 </RadioGroup>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     textAlign: 'center'
                 }}
@@ -203,12 +202,12 @@ const FilterBar = () => {
                     width="80%"
                     height="40px"
                     onClick={() => {
-                        console.log('done');
+                        console.log("done")
                     }}
                 >
                     Reset Filter
                 </PrimaryButton>
-            </Box>
+            </Box> */}
         </Box>
     );
 };

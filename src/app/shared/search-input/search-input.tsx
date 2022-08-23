@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material';
+import { styled } from '@mui/material';
 import { InputBase } from '@mui/material';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 const Search = styled('div')(() => ({
     position: 'relative',
@@ -44,12 +44,24 @@ interface IProps {
 }
 
 const SearchInput: FC<IProps> = ({ placeholder }) => {
+    const [text, setText] = useState('');
+    const handleTextChange = (e: any) => {
+        setText(e.target.value);
+    };
+
+    console.log(text);
+
     return (
         <Search>
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder={placeholder} inputProps={{ 'aria-label': 'search', style: { width: '80%' } }} />
+            <StyledInputBase
+                placeholder={placeholder}
+                inputProps={{ 'aria-label': 'search', style: { width: '80%' } }}
+                onChange={handleTextChange}
+                value={text}
+            />
         </Search>
     );
 };
