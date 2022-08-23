@@ -1,7 +1,13 @@
 import {
+    CREATE_CART_REQUEST,
+    CREATE_CART_SUCCESS,
+    CREATE_CART_FAILURE,
     ADD_TO_CART_REQUEST,
     ADD_TO_CART_FAILURE,
     ADD_TO_CART_SUCCESS,
+    GET_CART_REQUEST,
+    GET_CART_SUCCESS,
+    GET_CART_FAILURE,
     REMOVE_TO_CART_REQUEST,
     REMOVE_TO_CART_SUCCESS,
     REMOVE_TO_CART_FAILURE,
@@ -34,6 +40,29 @@ export interface cart {
     error?: boolean;
 }
 
+export const createCartReducer = (state: cart, action: AnyAction) => {
+    switch (action.type) {
+        case CREATE_CART_REQUEST:
+            return {
+                isFetching: true,
+                error: false
+            };
+        case CREATE_CART_SUCCESS:
+            return {
+                cart: action.payload,
+                isFetching: false,
+                error: false
+            };
+        case CREATE_CART_FAILURE:
+            return {
+                isFetching: false,
+                error: true
+            };
+        default:
+            return { ...state };
+    }
+};
+
 export const cartItemReducer = (state: cartState, action: AnyAction) => {
     switch (action.type) {
         case ADD_TO_CART_REQUEST:
@@ -48,6 +77,29 @@ export const cartItemReducer = (state: cartState, action: AnyAction) => {
                 error: false
             };
         case ADD_TO_CART_FAILURE:
+            return {
+                isFetching: false,
+                error: true
+            };
+        default:
+            return { ...state };
+    }
+};
+
+export const getCartReducer = (state: cartState, action: AnyAction) => {
+    switch (action.type) {
+        case GET_CART_REQUEST:
+            return {
+                isFetching: true,
+                error: false
+            };
+        case GET_CART_SUCCESS:
+            return {
+                cartInfo: action.payload,
+                isFetching: false,
+                error: false
+            };
+        case GET_CART_FAILURE:
             return {
                 isFetching: false,
                 error: true

@@ -1,8 +1,13 @@
 import React from 'react';
 import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { PrimaryButton } from '../../shared';
+//import { PrimaryButton } from '../../shared';
 import { useHistory } from 'react-router-dom';
+// redux
+import { RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilterProduct } from '../../redux/actions/productActions';
+import { getListCategory } from '../../redux/actions/categoryActions';
 
 const dataCategory = [
     {
@@ -23,6 +28,8 @@ const dataCategory = [
 ];
 
 const FilterBar = () => {
+    const dispatch = useDispatch();
+
     const [category, setCategory] = React.useState(dataCategory[0].categoryName);
     const history = useHistory();
 
@@ -30,9 +37,67 @@ const FilterBar = () => {
         const value = event.target.value;
         const pathName = value.toLocaleLowerCase().replace(' ', '-');
         setCategory(value);
+        dispatch(
+            getFilterProduct({
+                category: pathName,
+                type: null,
+                min: 1,
+                max: 50,
+                rating: null,
+                pageNumber: null,
+                sortOrder: null
+            })
+        );
         history.push(`/delivery/${pathName}`);
     };
 
+    const handleFilterPrice = (event: any) => {
+        switch (event.target.value) {
+            case 'under50':
+                dispatch(
+                    getFilterProduct({
+                        category: null,
+                        type: null,
+                        min: 1,
+                        max: 50,
+                        rating: null,
+                        pageNumber: null,
+                        sortOrder: null
+                    })
+                );
+                break;
+            case '50to100':
+                console.log('50 - 100');
+                dispatch(
+                    getFilterProduct({
+                        category: null,
+                        type: null,
+                        min: 50,
+                        max: 100,
+                        rating: null,
+                        pageNumber: null,
+                        sortOrder: null
+                    })
+                );
+                break;
+            case 'above100':
+                console.log('> 100');
+                dispatch(
+                    getFilterProduct({
+                        category: null,
+                        type: null,
+                        min: 100,
+                        max: 10000,
+                        rating: null,
+                        pageNumber: null,
+                        sortOrder: null
+                    })
+                );
+                break;
+            default:
+                dispatch(getListCategory());
+        }
+    };
     return (
         <Box className="flex flex-col gap-4 px-3 bg-filter-bar tablet:hidden">
             <Typography
@@ -45,53 +110,6 @@ const FilterBar = () => {
             >
                 Filters
             </Typography>
-
-            {/* Type
-
-            <Box
-                sx={{
-                    width: '200px'
-                }}
-            >
-                <FormLabel
-                    id="sort-type"
-                    sx={{
-                        color: '#111',
-                        fontWeight: '600',
-                        marginBottom: '6px'
-                    }}
-                >
-                    Sort type
-                </FormLabel>
-                <RadioGroup aria-labelledby="sort-type" defaultValue="foryou" name="radio-type">
-                    <FormControlLabel
-                        sx={{
-                            padding: '10px 6px'
-                        }}
-                        value="foryou"
-                        control={<Radio color="default" size="small" />}
-                        label="For you"
-                    />
-                    <FormControlLabel
-                        sx={{
-                            padding: '10px 6px'
-                        }}
-                        value="rating"
-                        control={<Radio color="default" size="small" />}
-                        label="Rating"
-                    />
-                    <FormControlLabel
-                        sx={{
-                            padding: '10px 6px'
-                        }}
-                        value="catagory"
-                        control={<Radio color="default" size="small" />}
-                        label="Category"
-                    />
-                </RadioGroup>
-            </Box> */}
-
-            {/* Category */}
 
             <Box
                 sx={{
@@ -143,7 +161,7 @@ const FilterBar = () => {
                 >
                     Price
                 </FormLabel>
-                <RadioGroup aria-labelledby="sort-price" defaultValue="under100" name="radio-price">
+                <RadioGroup aria-labelledby="sort-price" name="radio-price" onChange={handleFilterPrice}>
                     <FormControlLabel
                         sx={{
                             padding: '10px 6px'
@@ -171,7 +189,7 @@ const FilterBar = () => {
                 </RadioGroup>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     textAlign: 'center'
                 }}
@@ -184,12 +202,12 @@ const FilterBar = () => {
                     width="80%"
                     height="40px"
                     onClick={() => {
-                        console.log('done');
+                        console.log("done")
                     }}
                 >
                     Reset Filter
                 </PrimaryButton>
-            </Box>
+            </Box> */}
         </Box>
     );
 };

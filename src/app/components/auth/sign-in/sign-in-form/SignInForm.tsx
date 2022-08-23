@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { userState } from '../../../../redux/reducers/userReducer';
 import { login } from '../../../../redux/actions/userActions';
+import { createCart } from '../../../../redux/actions/cartActions';
 
 const dataInput = [
     {
@@ -78,6 +79,8 @@ const SignInForm = () => {
 
     useEffect(() => {
         if (userInfo) {
+            const { _id } = userInfo;
+            dispatch(createCart(_id));
             history.push('/delivery');
         }
     }, [userInfo, history]);

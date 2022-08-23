@@ -1,41 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { Sapporo } from '../../../utils/dataImages';
-
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, CircularProgress } from '@mui/material';
 
 import { PrimaryButton } from '../../index';
+
+//redux
+import { RootState } from '../../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartState } from '../../../redux/reducers/cartReducer';
+import { getCart, removeCartItem, updateQtyCartItem } from '../../../redux/actions/cartActions';
 
 interface Props {
     closeCart: Function;
 }
 
-const dataCart = [
-    {
-        img: Sapporo,
-        dataName: 'Sapporo',
-        price: 200
-    }
-];
-
 const CartItem: React.FC<Props> = ({ closeCart }) => {
-    const [numberItemCart, setNumberItemCart] = React.useState(1);
+    const dispatch = useDispatch();
+    const getCartData = useSelector<RootState, cartState>((state) => state.getCart);
+    const { cartInfo } = getCartData;
+    console.log(cartInfo);
 
-    const handleIncrease = () => {
-        setNumberItemCart((prev: number) => prev + 1);
+    const handleIncrease = (productID: string, qnt: number) => {
+        dispatch(updateQtyCartItem(productID, qnt + 1));
+        dispatch(getCart());
     };
 
-    const handleDecrease = () => {
-        numberItemCart === 0 ? setNumberItemCart(0) : setNumberItemCart((prev: number) => prev - 1);
+    const handleDecrease = (productID: string, qnt: number) => {
+        if (qnt > 1) {
+            dispatch(updateQtyCartItem(productID, qnt - 1));
+            dispatch(getCart());
+        }
+    };
+
+    const handleRemoveItem = async (productID: string) => {
+        await dispatch(removeCartItem(productID));
+        dispatch(getCart());
     };
 
     return (
         <>
-            <Box>
+            <Box
+                sx={{
+                    height: '100%'
+                }}
+            >
                 <Box
                     sx={{
                         display: 'flex',
@@ -53,25 +65,25 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                 <Box
                     sx={{
                         padding: '20px 16px',
-                        //height: ' 420px',
+                        height: ' 420px',
                         overflowY: 'auto'
                     }}
                 >
-                    {dataCart.map((item: any) => (
+                    {cartInfo.map((product: any) => (
                         <Box
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 marginBottom: '16px'
                             }}
-                            key={item.dataName}
+                            key={product._id}
                         >
                             <Box
                                 sx={{
                                     marginRight: '10px'
                                 }}
                             >
-                                <img src={item.img} alt={item.img} className="w-[80px] h-[80px]" />
+                                <img src={product.image} alt={product.image} className="w-[80px] h-[80px]" />
                             </Box>
 
                             <Box
@@ -86,7 +98,7 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                                         fontWeight: '600'
                                     }}
                                 >
-                                    {item.dataName}
+                                    {product.name}
                                 </Typography>
 
                                 <Typography
@@ -98,7 +110,7 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                                     className="text-yellow-light"
                                 >
                                     ${''}
-                                    {item.price}
+                                    {product.price}
                                 </Typography>
 
                                 <Box
@@ -108,21 +120,21 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                                         gap: '6px'
                                     }}
                                 >
-                                    <IconButton size="small" onClick={() => handleDecrease()}>
+                                    <IconButton size="small" onClick={() => handleDecrease(product._id, product.quantity)}>
                                         <RemoveIcon />
                                     </IconButton>
 
                                     <Typography variant="body1" component="span">
-                                        {numberItemCart}
+                                        {product.quantity}
                                     </Typography>
 
-                                    <IconButton size="small" onClick={() => handleIncrease()}>
+                                    <IconButton size="small" onClick={() => handleIncrease(product._id, product.quantity)}>
                                         <AddIcon />
                                     </IconButton>
                                 </Box>
                             </Box>
 
-                            <IconButton>
+                            <IconButton onClick={() => handleRemoveItem(product._id)}>
                                 <DeleteIcon />
                             </IconButton>
                         </Box>

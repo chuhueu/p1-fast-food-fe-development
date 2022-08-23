@@ -81,3 +81,24 @@ export const getDetailProduct =
             });
         }
     };
+
+// export const getFilterProductByName =
+// ({ category, type, min, max, rating, pageNumber, sortOrder }: any): any =>
+// async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
+//     try {
+//         dispatch({ type: GET_FILTER_PRODUCT_REQUEST });
+
+//         const { data } = await axios.get(
+//             `/product/list?category=${category}&type=${type}&min=${min}&max=${max}&rating=${rating}&pageNumber=${pageNumber}&sortOrder=${sortOrder}`
+//         );
+//         dispatch({
+//             type: GET_FILTER_PRODUCT_SUCCESS,
+//             payload: data
+//         });
+//     } catch (error) {
+//         dispatch({
+//             type: GET_FILTER_PRODUCT_FAILURE,
+//             payload: error
+//         });
+//     }
+// };
