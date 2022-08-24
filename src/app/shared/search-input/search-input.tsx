@@ -2,6 +2,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material';
 import { InputBase } from '@mui/material';
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getFilterProductByname } from '../../redux/actions/productActions';
 
 const Search = styled('div')(() => ({
     position: 'relative',
@@ -44,12 +46,12 @@ interface IProps {
 }
 
 const SearchInput: FC<IProps> = ({ placeholder }) => {
+    const dispatch = useDispatch();
     const [text, setText] = useState('');
     const handleTextChange = (e: any) => {
         setText(e.target.value);
+        dispatch(getFilterProductByname(e.target.value));
     };
-
-    console.log(text);
 
     return (
         <Search>

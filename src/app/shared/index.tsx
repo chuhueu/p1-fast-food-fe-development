@@ -24,3 +24,5 @@ export { default as FilterBar } from './filter-bar/FilterBar';
 export { default as ProductCard } from './product-card/ProductCard';
 // list
 export { default as ListItem } from './List-item/ListItem';
+//table list
+export { default as EnhancedTable } from './table-product/TableProduct';

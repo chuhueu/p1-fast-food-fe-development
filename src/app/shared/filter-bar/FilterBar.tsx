@@ -9,6 +9,7 @@ import { getFilterProduct } from '../../redux/actions/productActions';
 import { getListCategory } from '../../redux/actions/categoryActions';
 
 const dataCategory = [
+    { categoryName: 'Choose option' },
     {
         categoryName: 'All'
     },
@@ -38,18 +39,20 @@ const FilterBar = () => {
         const value = event.target.value;
         const pathNameFilter = value.toLocaleLowerCase().replace(' ', '-');
         setCategory(value);
-        dispatch(
-            getFilterProduct({
-                category: category !== 'All' ? category : 'All',
-                type: pathNameFilter,
-                min: 1,
-                max: 10000000,
-                rating: null,
-                pageNumber: null,
-                sortOrder: null
-            })
-        );
-        history.push(`/delivery/${pathNameFilter}`);
+        if (pathNameFilter !== 'choose-option') {
+            dispatch(
+                getFilterProduct({
+                    category: category !== 'All' ? category : 'All',
+                    type: pathNameFilter,
+                    min: 1,
+                    max: 10000000,
+                    rating: null,
+                    pageNumber: null,
+                    sortOrder: null
+                })
+            );
+            history.push(`/delivery/${pathNameFilter}`);
+        }
     };
 
     const handleFilterPrice = (event: any) => {
