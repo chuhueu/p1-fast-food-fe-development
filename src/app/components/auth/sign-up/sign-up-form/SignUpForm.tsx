@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { userState } from '../../../../redux/reducers/userReducer';
 import { registerUser } from '../../../../redux/actions/userActions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const dataInput = [
     {
@@ -63,7 +63,7 @@ const schema = yup.object({
 });
 
 const SignUpForm = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const userRegister = useSelector<RootState, userState>((state) => state.userRegister);
     const { userInfo, isFetching, error } = userRegister;
@@ -90,9 +90,9 @@ const SignUpForm = () => {
 
     useEffect(() => {
         if (userInfo) {
-            history.push('/sign-in');
+            navigate('/sign-in');
         }
-    }, [userInfo, history]);
+    }, [userInfo, navigate]);
 
     return (
         <>

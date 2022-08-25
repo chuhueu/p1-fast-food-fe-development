@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 //import { PrimaryButton } from '../../shared';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 // redux
 import { useDispatch } from 'react-redux';
 import { getFilterProduct } from '../../redux/actions/productActions';
@@ -33,7 +33,7 @@ const FilterBar = () => {
     const pathName = pathname.slice(10);
 
     const [category, setCategory] = React.useState(dataCategory[0].categoryName);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
@@ -51,7 +51,7 @@ const FilterBar = () => {
                     sortOrder: null
                 })
             );
-            history.push(`/delivery/${pathNameFilter}`);
+            navigate(`/delivery/${pathNameFilter}`);
         }
     };
 
@@ -71,7 +71,6 @@ const FilterBar = () => {
                 );
                 break;
             case '50to100':
-                console.log('50 - 100');
                 dispatch(
                     getFilterProduct({
                         category: category !== 'All' ? category : 'All',
@@ -85,7 +84,6 @@ const FilterBar = () => {
                 );
                 break;
             case 'above100':
-                console.log('> 100');
                 dispatch(
                     getFilterProduct({
                         category: category !== 'All' ? category : 'All',

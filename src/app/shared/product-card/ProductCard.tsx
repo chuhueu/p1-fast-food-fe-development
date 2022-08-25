@@ -32,8 +32,6 @@ const ProductCard = () => {
     const { textName } = filterProductByName;
     const { filterProductInfo, isFetching } = filterProduct;
 
-    console.log(textName);
-
     useEffect(() => {
         dispatch(
             getFilterProduct({

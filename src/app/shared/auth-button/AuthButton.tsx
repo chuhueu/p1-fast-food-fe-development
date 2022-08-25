@@ -1,6 +1,6 @@
 import { Button, styled } from '@mui/material';
 import { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     page: string;
@@ -37,14 +37,14 @@ const SubmitButton = styled(Button)({
 }) as typeof Button;
 
 const AuthButton: FC<IProps> = ({ page, children }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const handleMovePage = () => {
         switch (page) {
             case 'sign-in':
-                history.push('/sign-in');
+                navigate('/sign-in');
                 break;
             case 'sign-up':
-                history.push('/sign-up');
+                navigate('/sign-up');
                 break;
             default:
                 break;

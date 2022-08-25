@@ -26,3 +26,5 @@ export { default as ProductCard } from './product-card/ProductCard';
 export { default as ListItem } from './List-item/ListItem';
 //table list
 export { default as EnhancedTable } from './table-product/TableProduct';
+// page not found
+export { default as PageNotFound } from './not-found/PageNotFound';

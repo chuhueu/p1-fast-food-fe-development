@@ -40,10 +40,10 @@ const PageDelivery = () => {
                                 <DeleveryCategorySlider />
 
                                 <RestaurantSilder slidePerViews={2} />
+                                {/* <DeliveryPurchase /> */}
                             </>
                         ) : (
                             <>
-                                {/* <DeliveryPurchase /> */}
                                 <PageProducts />
                             </>
                         )}

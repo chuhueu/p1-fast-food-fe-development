@@ -8,7 +8,7 @@ import NavbarHeader from './components/navbar-header';
 import UserHeader from './components/user-header';
 import NavbarUser from './components/navbar-user';
 import NavbarAdmin from './components/navbar-admin';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 

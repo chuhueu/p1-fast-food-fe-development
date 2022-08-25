@@ -13,14 +13,13 @@ import * as yup from 'yup';
 
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { userState } from '../../../../redux/reducers/userReducer';
 import { login } from '../../../../redux/actions/userActions';
-import { createCart } from '../../../../redux/actions/cartActions';
 
 const dataInput = [
     {
@@ -53,7 +52,7 @@ const schema = yup.object({
 
 const SignInForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const userLogin = useSelector<RootState, userState>((state) => state.userLogin);
 
     const { userInfo, isFetching, error } = userLogin;
@@ -79,11 +78,9 @@ const SignInForm = () => {
 
     useEffect(() => {
         if (userInfo) {
-            const { _id } = userInfo;
-            dispatch(createCart(_id));
-            history.push('/delivery');
+            navigate('/delivery');
         }
-    }, [userInfo, history]);
+    }, [userInfo]);
 
     const handleLoginGG = async (googleData: any) => {
         console.log(googleData);
@@ -96,8 +93,8 @@ const SignInForm = () => {
             }
         });
 
-        console.log(data);
         localStorage.setItem('userInfo', JSON.stringify(data));
+        navigate('/delivery');
     };
 
     const handleFailureGG = (res: any) => {

@@ -18,8 +18,6 @@ const PageAdmin = () => {
                 <AdminSideBar />
                 <div className="flex flex-col w-full">
                     <NavbarAdmin />
-
-                    <AdminProduct />
                 </div>
             </Box>
         </>

@@ -1,44 +1,44 @@
-import { HomePage, SignIn, SignUp } from '../components';
+import { Routes, Route } from 'react-router-dom';
+import { Suspense } from 'react';
 
-import { PageDelivery, PageProducts, PageAdmin } from '../screens';
+import { configRoutesUser, configRoutesAdmin } from '../config/configRoutes';
 
-import AdminProduct from '../screens/page-admin/components/AdminProduct';
+export function ElementRouteUser() {
+    return (
+        <Suspense fallback={<div className="h-screen w-full z-[9999] bg-zinc-300">Loading...</div>}>
+            <Routes>
+                {configRoutesUser.map(({ path, element, routes }, index) => (
+                    <Route key={`route-${index}`} path={path} element={element}>
+                        {routes && (
+                            <>
+                                {routes.map((route, index) => (
+                                    <Route key={`route-${index}`} path={route.path} element={route.element} />
+                                ))}
+                            </>
+                        )}
+                    </Route>
+                ))}
+            </Routes>
+        </Suspense>
+    );
+}
 
-export const Routes = [
-    {
-        path: '/',
-        exact: true,
-        component: HomePage
-    },
-    {
-        path: '/sign-in',
-        component: SignIn
-    },
-    {
-        path: '/sign-up',
-        component: SignUp
-    },
-    {
-        path: '/delivery',
-        component: PageDelivery,
-        Routes: [
-            {
-                path: '/delivery/best-foods',
-                exact: true,
-                component: PageProducts
-            }
-        ]
-    },
-    {
-        path: '/manage',
-        exact: true,
-        component: PageAdmin,
-        Routes: [
-            {
-                path: '/manage/products',
-                exact: true,
-                component: AdminProduct
-            }
-        ]
-    }
-];
+export function ElementRouteAdmin() {
+    return (
+        <Suspense fallback={<div className="h-screen w-full z-[9999] bg-zinc-300">Loading...</div>}>
+            <Routes>
+                {configRoutesAdmin.map(({ path, element, routes }, index) => (
+                    <Route key={`route-${index}`} path={path} element={element}>
+                        {routes && (
+                            <>
+                                {routes.map((route, index) => (
+                                    <Route key={`route-${index}`} path={route.path} element={route.element} />
+                                ))}
+                            </>
+                        )}
+                    </Route>
+                ))}
+            </Routes>
+        </Suspense>
+    );
+}

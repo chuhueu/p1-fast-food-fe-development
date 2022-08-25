@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import { Typography, ListItemButton, Box, List } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListItem() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -13,7 +13,7 @@ export default function ListItem() {
         const text = element.textContent.toLowerCase();
         setSelectedIndex(index);
 
-        history.push(`/manage/${text}`);
+        navigate(`/manage/${text}`);
     };
 
     return (
