@@ -3,12 +3,14 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { SearchInput } from '../../../shared';
-
 import { Link, useLocation } from 'react-router-dom';
 import { Typography, Avatar } from '@mui/material';
 
 import { AuthContext } from '../../../context/AuthContext';
+//redux
+import { RootState } from '../../../redux/store';
+import { userState } from '../../../redux/reducers/userReducer';
+import { useSelector } from 'react-redux';
 
 const navItem = [
     {
@@ -30,10 +32,13 @@ interface IProps {
 }
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
-    const { user, isShowCart, setIsShowCart } = useContext(AuthContext);
+    const userData = useSelector<RootState, userState>((state) => state.userLogin);
+    const { isShowCart, setIsShowCart } = useContext(AuthContext);
     const { pathname } = useLocation();
     const activeNav = pathname.replace('/', '');
     const [typeNav, setTypeNav] = useState(activeNav);
+
+    const { userInfo } = userData;
 
     const handleShowCart = () => {
         setIsShowCart(!isShowCart);
@@ -85,7 +90,7 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                         </div>
 
                         <div className="flex justify-center items-center cursor-pointer">
-                            {user ? <Avatar src={user.image} /> : <Avatar />}
+                            {userInfo ? <Avatar src={userInfo?.avatar} /> : <Avatar />}
                         </div>
                         <div className="flex justify-center items-center cursor-pointer" onClick={() => showNavbarUser()}>
                             <MenuIcon

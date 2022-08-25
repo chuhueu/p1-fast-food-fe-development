@@ -22,3 +22,7 @@ export { default as Cart } from './cart/Cart';
 export { default as FilterBar } from './filter-bar/FilterBar';
 // products
 export { default as ProductCard } from './product-card/ProductCard';
+// list
+export { default as ListItem } from './List-item/ListItem';
+//table list
+export { default as EnhancedTable } from './table-product/TableProduct';

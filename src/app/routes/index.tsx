@@ -1,6 +1,8 @@
 import { HomePage, SignIn, SignUp } from '../components';
 
-import { PageDelivery, PageProducts } from '../screens';
+import { PageDelivery, PageProducts, PageAdmin } from '../screens';
+
+import AdminProduct from '../screens/page-admin/components/AdminProduct';
 
 export const Routes = [
     {
@@ -24,6 +26,18 @@ export const Routes = [
                 path: '/delivery/best-foods',
                 exact: true,
                 component: PageProducts
+            }
+        ]
+    },
+    {
+        path: '/manage',
+        exact: true,
+        component: PageAdmin,
+        Routes: [
+            {
+                path: '/manage/products',
+                exact: true,
+                component: AdminProduct
             }
         ]
     }

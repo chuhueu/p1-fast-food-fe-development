@@ -57,7 +57,7 @@ export const registerUser =
             };
             // fetch data from Backend
             const { data } = await axios.post(
-                '/auth/register',
+                '/',
                 {
                     username,
                     email,

@@ -7,7 +7,8 @@ import {
     GET_FILTER_PRODUCT_SUCCESS,
     GET_DETAIL_PRODUCT_FAILURE,
     GET_DETAIL_PRODUCT_REQUEST,
-    GET_DETAIL_PRODUCT_SUCCESS
+    GET_DETAIL_PRODUCT_SUCCESS,
+    FILTER_PRODUCT_BY_NAME
 } from '../constants/productConstants';
 
 export interface productInfo {
@@ -45,6 +46,14 @@ export interface detailProductState {
     isFetching?: boolean;
     error?: boolean;
 }
+
+export interface searchTextName {
+    textName: string;
+}
+
+const searchTextNameValue: searchTextName = {
+    textName: ''
+};
 
 interface Action {
     type: string;
@@ -115,6 +124,15 @@ export const detailProductReducer = (state: detailProductState, action: Action) 
                 isFetching: false,
                 error: true
             };
+        default:
+            return { ...state };
+    }
+};
+
+export const filterProductBynameReducer = (state: searchTextName = searchTextNameValue, action: Action) => {
+    switch (action.type) {
+        case FILTER_PRODUCT_BY_NAME:
+            return { textName: action.payload };
         default:
             return { ...state };
     }

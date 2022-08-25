@@ -5,11 +5,11 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import { AuthContext } from '../../context/AuthContext';
 import { FC, useContext, useEffect } from 'react';
 import SearchInput from '../search-input/search-input';
-
+import { useLocation } from 'react-router-dom';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { productState, filterProductState } from '../../redux/reducers/productReducer';
+import { productState, filterProductState, searchTextName } from '../../redux/reducers/productReducer';
 
 import { getListProduct, getDetailProduct, getFilterProduct } from '../../redux/actions/productActions';
 
@@ -21,31 +21,37 @@ const Img = styled('img')({
 });
 
 const ProductCard = () => {
-    const products = useSelector<RootState, productState>((state) => state.listProduct);
+    const filterProductByName = useSelector<RootState, searchTextName>((state) => state.filterProductByName);
     const filterProduct = useSelector<RootState, filterProductState>((state) => state.filterProduct);
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const pathName = pathname.slice(10);
+
     const { setShowDetail } = useContext(AuthContext);
-    const { productInfo } = products;
+
+    const { textName } = filterProductByName;
     const { filterProductInfo, isFetching } = filterProduct;
+
+    console.log(textName);
+
+    useEffect(() => {
+        dispatch(
+            getFilterProduct({
+                category: 'All',
+                type: pathName,
+                min: 1,
+                max: 10000000,
+                rating: null,
+                pageNumber: null,
+                sortOrder: null
+            })
+        );
+    }, [pathName]);
 
     const handleShowDetailProduct = (data: any) => {
         dispatch(getDetailProduct(data));
         setShowDetail(true);
     };
-
-    useEffect(() => {
-        // getFilterProduct({
-        //     category: null,
-        //     type: null,
-        //     min:,
-        //     max,
-        //     rating,
-        //     pageNumber,
-        //     sortOrder,
-        // })
-        dispatch(getListProduct());
-        console.log(filterProductInfo);
-    }, [filterProductInfo]);
 
     return (
         <>
@@ -86,58 +92,72 @@ const ProductCard = () => {
                     </Box>
                 ) : (
                     <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        {filterProductInfo?.products?.map((item) => (
-                            <Grid item xs={12} sm={6} md={6} key={item._id} onClick={() => handleShowDetailProduct(item._id)}>
-                                <Box className="!justify-start  border-2 border-solid bg-gray-fade rounded-md cursor-pointer">
-                                    <Box
-                                        sx={{
-                                            padding: '10px 30px',
-                                            width: '100%',
-                                            height: '100%',
-                                            display: 'flex',
-                                            alignItem: 'center',
-                                            position: 'relative'
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                gap: '20px',
-                                                alignItems: 'center'
-                                            }}
-                                        >
+                        {filterProductInfo?.products &&
+                            filterProductInfo?.products
+                                .filter((item) => {
+                                    if (textName === '') {
+                                        return item;
+                                    } else if (item.name.toLowerCase().includes(textName.toLowerCase())) {
+                                        return item;
+                                    }
+                                    return false;
+                                })
+                                .map((item) => (
+                                    <Grid item xs={12} sm={6} md={6} key={item._id} onClick={() => handleShowDetailProduct(item._id)}>
+                                        <Box className="!justify-start  border-2 border-solid bg-gray-fade rounded-md cursor-pointer">
                                             <Box
                                                 sx={{
-                                                    maxWidth: '100px',
-                                                    maxHeight: '100px'
-                                                }}
-                                            >
-                                                <Img src={item.image} alt="CoronaBeer" />
-                                            </Box>
-                                            <Box
-                                                sx={{
+                                                    padding: '10px 30px',
+                                                    width: '100%',
+                                                    height: '100%',
                                                     display: 'flex',
-                                                    gap: '10px',
-                                                    textAlign: 'start',
-                                                    flexDirection: 'column'
+                                                    alignItem: 'center',
+                                                    position: 'relative'
                                                 }}
                                             >
-                                                <Typography variant="body1" component="h3" className="!font-semibold">
-                                                    {item.name}
-                                                </Typography>
-                                                <Typography variant="body2" component="span" className="text-gray-400">
-                                                    {item.desc}
-                                                </Typography>
-                                                <Typography variant="h5" component="h4" className="text-yellow-light !font-semibold">
-                                                    ${''} {item.price}
-                                                </Typography>
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        gap: '20px',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            maxWidth: '100px',
+                                                            maxHeight: '100px'
+                                                        }}
+                                                    >
+                                                        <Img src={item.image} alt={item.image} />
+                                                    </Box>
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            gap: '10px',
+                                                            textAlign: 'start',
+                                                            flexDirection: 'column'
+                                                        }}
+                                                    >
+                                                        <Typography variant="body1" component="h3" className="!font-semibold">
+                                                            {item.name}
+                                                        </Typography>
+                                                        <Typography variant="body2" component="span" className="text-gray-400">
+                                                            {item.desc}
+                                                        </Typography>
+                                                        <Typography
+                                                            variant="h5"
+                                                            component="h4"
+                                                            className="text-yellow-light !font-semibold"
+                                                        >
+                                                            ${''} {item.price}
+                                                        </Typography>
+                                                    </Box>
+                                                </Box>
+                                                <FavoriteRoundedIcon className="absolute right-8 top-4 !w-8 !h-8 cursor-pointer hover:fill-red-500" />
                                             </Box>
                                         </Box>
-                                        <FavoriteRoundedIcon className="absolute right-8 top-4 !w-8 !h-8 cursor-pointer hover:fill-red-500" />
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        ))}
+                                    </Grid>
+                                ))}
                     </Grid>
                 )}
             </Container>

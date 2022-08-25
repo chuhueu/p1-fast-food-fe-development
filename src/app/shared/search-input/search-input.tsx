@@ -2,13 +2,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material';
 import { InputBase } from '@mui/material';
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getFilterProductByname } from '../../redux/actions/productActions';
 
 const Search = styled('div')(() => ({
     position: 'relative',
-    background: '#ffffff',
-    borderRadius: '10px',
+    background: 'rgba(145, 158, 171, 0.08)',
+    borderRadius: '16px',
     '&:hover': {
-        backgroundColor: '#ffffff'
+        backgroundColor: 'rgba(145, 158, 171, 0.08)'
     },
     marginLeft: 0,
     width: '100%'
@@ -44,12 +46,12 @@ interface IProps {
 }
 
 const SearchInput: FC<IProps> = ({ placeholder }) => {
+    const dispatch = useDispatch();
     const [text, setText] = useState('');
     const handleTextChange = (e: any) => {
         setText(e.target.value);
+        dispatch(getFilterProductByname(e.target.value));
     };
-
-    console.log(text);
 
     return (
         <Search>

@@ -2,16 +2,16 @@ import React from 'react';
 import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 //import { PrimaryButton } from '../../shared';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 // redux
-import { RootState } from '../../redux/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getFilterProduct } from '../../redux/actions/productActions';
 import { getListCategory } from '../../redux/actions/categoryActions';
 
 const dataCategory = [
+    { categoryName: 'Choose option' },
     {
-        categoryName: 'Choose options'
+        categoryName: 'All'
     },
     {
         categoryName: 'Best Foods'
@@ -29,26 +29,30 @@ const dataCategory = [
 
 const FilterBar = () => {
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const pathName = pathname.slice(10);
 
     const [category, setCategory] = React.useState(dataCategory[0].categoryName);
     const history = useHistory();
 
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
-        const pathName = value.toLocaleLowerCase().replace(' ', '-');
+        const pathNameFilter = value.toLocaleLowerCase().replace(' ', '-');
         setCategory(value);
-        dispatch(
-            getFilterProduct({
-                category: pathName,
-                type: null,
-                min: 1,
-                max: 50,
-                rating: null,
-                pageNumber: null,
-                sortOrder: null
-            })
-        );
-        history.push(`/delivery/${pathName}`);
+        if (pathNameFilter !== 'choose-option') {
+            dispatch(
+                getFilterProduct({
+                    category: category !== 'All' ? category : 'All',
+                    type: pathNameFilter,
+                    min: 1,
+                    max: 10000000,
+                    rating: null,
+                    pageNumber: null,
+                    sortOrder: null
+                })
+            );
+            history.push(`/delivery/${pathNameFilter}`);
+        }
     };
 
     const handleFilterPrice = (event: any) => {
@@ -56,8 +60,8 @@ const FilterBar = () => {
             case 'under50':
                 dispatch(
                     getFilterProduct({
-                        category: null,
-                        type: null,
+                        category: category !== 'All' ? category : 'All',
+                        type: pathName,
                         min: 1,
                         max: 50,
                         rating: null,
@@ -70,8 +74,8 @@ const FilterBar = () => {
                 console.log('50 - 100');
                 dispatch(
                     getFilterProduct({
-                        category: null,
-                        type: null,
+                        category: category !== 'All' ? category : 'All',
+                        type: pathName,
                         min: 50,
                         max: 100,
                         rating: null,
@@ -84,8 +88,8 @@ const FilterBar = () => {
                 console.log('> 100');
                 dispatch(
                     getFilterProduct({
-                        category: null,
-                        type: null,
+                        category: category !== 'All' ? category : 'All',
+                        type: pathName,
                         min: 100,
                         max: 10000,
                         rating: null,
