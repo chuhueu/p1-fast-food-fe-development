@@ -128,7 +128,7 @@ const ProductCard = () => {
                                                             maxHeight: '100px'
                                                         }}
                                                     >
-                                                        <Img src={item.image} alt="CoronaBeer" />
+                                                        <Img src={item.image} alt={item.image} />
                                                     </Box>
                                                     <Box
                                                         sx={{
