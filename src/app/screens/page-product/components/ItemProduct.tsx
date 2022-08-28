@@ -12,6 +12,8 @@ import { RootState } from '../../../redux/store';
 import { detailProductState } from '../../../redux/reducers/productReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, getCart } from '../../../redux/actions/cartActions';
+import { useParams } from 'react-router-dom';
+import { getDetailProduct } from '../../../redux/actions/productActions';
 
 interface productType {
     product: string;
@@ -24,10 +26,16 @@ interface productType {
 const ItemProduct = () => {
     const detailProduct = useSelector<RootState, detailProductState>((state) => state.detailProduct);
     const dispatch = useDispatch();
+    const { id } = useParams();
     const [qntProduct, setQntProduct] = useState(1);
     const { setShowDetail } = useContext(AuthContext);
 
     const { isFetching, productInfo } = detailProduct;
+
+    useEffect(() => {
+        dispatch(getDetailProduct(id));
+    }, [dispatch, id]);
+
     // quantity
     const handleDecreaseProduct = () => {
         setQntProduct((prev) => (prev === 1 ? prev : prev - 1));

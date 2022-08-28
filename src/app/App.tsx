@@ -1,12 +1,12 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthProvider from '../app/context/AuthContext';
 
-import { ElementRouteUser, ElementRouteAdmin } from './routes/index';
+import { Client, Admin } from './routes';
+
 // redux
 import { RootState } from './redux/store';
 import { userState } from './redux/reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCart } from './redux/actions/cartActions';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -17,18 +17,14 @@ function App() {
     const [check, setCheck] = useState(false);
 
     useEffect(() => {
-        if (userInfo?._id) {
-            dispatch(createCart(userInfo?._id));
-        }
-
-        if (userInfo?.role === 'ROLE_ADMIN') {
-            setCheck(true);
-        }
-    }, [userInfo, dispatch]);
+        userInfo?.role === 'ROLE_ADMIN' ? setCheck(true) : setCheck(false);
+    }, [userInfo]);
 
     return (
         <Router>
-            <AuthProvider>{check ? <ElementRouteAdmin /> : <ElementRouteUser />}</AuthProvider>
+            <AuthProvider>
+                <Routes>{check ? <Route path="/manage/*" element={<Admin />} /> : <Route path="/*" element={<Client />} />}</Routes>
+            </AuthProvider>
         </Router>
     );
 }

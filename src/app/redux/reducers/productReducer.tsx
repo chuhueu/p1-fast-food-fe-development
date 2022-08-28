@@ -8,7 +8,8 @@ import {
     GET_DETAIL_PRODUCT_FAILURE,
     GET_DETAIL_PRODUCT_REQUEST,
     GET_DETAIL_PRODUCT_SUCCESS,
-    FILTER_PRODUCT_BY_NAME
+    FILTER_PRODUCT_BY_NAME,
+    FILTER_PRODUCT_BY_PRICE
 } from '../constants/productConstants';
 
 export interface productInfo {
@@ -133,6 +134,15 @@ export const filterProductBynameReducer = (state: searchTextName = searchTextNam
     switch (action.type) {
         case FILTER_PRODUCT_BY_NAME:
             return { textName: action.payload };
+        default:
+            return { ...state };
+    }
+};
+
+export const filterProductByPriceReducer = (state: any, action: Action) => {
+    switch (action.type) {
+        case FILTER_PRODUCT_BY_PRICE:
+            return { price: action.payload };
         default:
             return { ...state };
     }

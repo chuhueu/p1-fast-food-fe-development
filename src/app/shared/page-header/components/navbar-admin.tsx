@@ -16,10 +16,6 @@ const NavbarAdmin = () => {
     const userData = useSelector<RootState, userState>((state) => state.userLogin);
     const { userInfo } = userData;
 
-    useEffect(() => {
-        console.log(userInfo);
-    }, [userInfo]);
-
     const [show, setShow] = useState(false);
 
     const handleLogout = () => {
@@ -55,9 +51,9 @@ const NavbarAdmin = () => {
                             right: '-10%',
                             borderRadius: '12px',
                             boxShadow: 'rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) -20px 20px 40px -4px;',
-                            zIndex: '998'
+                            backgroundColor: '#fff'
                         }}
-                        className={show ? 'my-3 opacity-1' : 'my-3 opacity-0 '}
+                        className={show ? 'my-3 opacity-1 z-[998]' : 'my-3 opacity-0 '}
                     >
                         <Box
                             sx={{

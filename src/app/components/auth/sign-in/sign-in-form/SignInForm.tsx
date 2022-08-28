@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { userState } from '../../../../redux/reducers/userReducer';
 import { login } from '../../../../redux/actions/userActions';
+import { createCart, getCart } from '../../../../redux/actions/cartActions';
+import { cartState } from '../../../../redux/reducers/cartReducer';
 
 const dataInput = [
     {
@@ -54,8 +56,10 @@ const SignInForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userLogin = useSelector<RootState, userState>((state) => state.userLogin);
+    const cartData = useSelector<RootState, cartState>((state) => state.getCart);
 
     const { userInfo, isFetching, error } = userLogin;
+    const { cartInfo } = cartData;
 
     const {
         register,
@@ -69,7 +73,6 @@ const SignInForm = () => {
     const onHandleSubmit: SubmitHandler<IFormInputs> = (data: any) => {
         const { email, password } = data;
         dispatch(login(email, password));
-
         reset({
             email: '',
             password: ''
@@ -77,10 +80,11 @@ const SignInForm = () => {
     };
 
     useEffect(() => {
-        if (userInfo) {
+        if (userInfo?._id) {
+            dispatch(createCart(userInfo?._id));
             navigate('/delivery');
         }
-    }, [userInfo]);
+    }, [userInfo, navigate]);
 
     const handleLoginGG = async (googleData: any) => {
         console.log(googleData);
@@ -94,7 +98,7 @@ const SignInForm = () => {
         });
 
         localStorage.setItem('userInfo', JSON.stringify(data));
-        navigate('/delivery');
+        window.location.href = '/manage';
     };
 
     const handleFailureGG = (res: any) => {

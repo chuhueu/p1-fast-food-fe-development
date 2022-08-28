@@ -6,6 +6,7 @@ import { PageDelivery, PageProducts, PageAdmin } from '../screens';
 import { PageNotFound } from '../shared';
 
 import AdminProduct from '../screens/page-admin/components/AdminProduct';
+import DetailProduct from '../screens/page-product/components/DetailProduct';
 
 export const configRoutesUser = [
     {
@@ -27,6 +28,10 @@ export const configRoutesUser = [
             {
                 path: '/delivery/:product',
                 element: <PageProducts />
+            },
+            {
+                path: '/delivery/:product/:id',
+                Element: <DetailProduct />
             }
         ]
     },

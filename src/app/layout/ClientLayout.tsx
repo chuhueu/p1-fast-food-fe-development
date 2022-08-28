@@ -1,12 +1,12 @@
+import { Box, Container } from '@mui/material';
 import React from 'react';
-import { PageHeader, FilterBar, RestaurantSilder } from '../../shared';
-import { Container, Box } from '@mui/material';
+import { FilterBar, PageHeader } from '../shared';
 
-// import DeliveryPurchase from './components/delivery-purchase/DeliveryPurchase';
+interface Props {
+    children: React.ReactNode;
+}
 
-import DeleveryCategorySlider from './components/delivery-category-slide/DeleveryCategorySlider';
-
-const PageDelivery = () => {
+const ClientLayout: React.FC<Props> = ({ children }) => {
     return (
         <>
             <PageHeader />
@@ -29,9 +29,7 @@ const PageDelivery = () => {
                         }}
                         className="4k-desktop:max-w-[1200px] tablet:max-w-[600px] large-desktop:max-w-[1100px] tablet-lg:max-w-[780px] py-5 px-3"
                     >
-                        <DeleveryCategorySlider />
-
-                        <RestaurantSilder slidePerViews={2} />
+                        {children}
                     </Box>
                 </Box>
             </Container>
@@ -39,4 +37,4 @@ const PageDelivery = () => {
     );
 };
 
-export default PageDelivery;
+export default ClientLayout;

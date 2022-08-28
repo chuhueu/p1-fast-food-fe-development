@@ -3,7 +3,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ProductCard } from '../../shared';
 import React from 'react';
 
-import DetailProduct from './components/DetailProduct';
 import { useNavigate } from 'react-router-dom';
 
 const PageProducts = () => {
@@ -31,8 +30,6 @@ const PageProducts = () => {
             </Typography>
 
             <ProductCard />
-
-            <DetailProduct />
         </Container>
     );
 };

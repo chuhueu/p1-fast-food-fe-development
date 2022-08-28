@@ -16,7 +16,8 @@ import {
     ADD_NEW_PRODUCT_FAILURE,
     ADD_NEW_PRODUCT_REQUEST,
     ADD_NEW_PRODUCT_SUCCESS,
-    FILTER_PRODUCT_BY_NAME
+    FILTER_PRODUCT_BY_NAME,
+    FILTER_PRODUCT_BY_PRICE
 } from '../constants/productConstants';
 
 export const getListProduct =
@@ -64,14 +65,10 @@ export const getFilterProduct =
     };
 
 export const getDetailProduct =
-    (id: string): any =>
+    (id: any): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
         try {
             dispatch({ type: GET_DETAIL_PRODUCT_REQUEST });
-
-            // const {
-            //   userLogin: { userInfo },
-            // } = getState();
 
             const { data } = await axios.post(`/product/${id}`);
             dispatch({
@@ -131,5 +128,14 @@ export const getFilterProductByname =
         dispatch({
             type: FILTER_PRODUCT_BY_NAME,
             payload: text
+        });
+    };
+
+export const getPriceProduct =
+    ({ min, max }: any): any =>
+    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
+        dispatch({
+            type: FILTER_PRODUCT_BY_PRICE,
+            payload: { min, max }
         });
     };
