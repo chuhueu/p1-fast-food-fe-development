@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Box, FormLabel, RadioGroup, FormControlLabel, Radio, FormControl, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 //import { PrimaryButton } from '../../shared';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // redux
-import { useDispatch } from 'react-redux';
-import { getFilterProduct } from '../../redux/actions/productActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { getFilterProduct, getPriceProduct } from '../../redux/actions/productActions';
 import { getListCategory } from '../../redux/actions/categoryActions';
+
+import { usePathName, capitalizeFirstLetter } from '../../hooks/usePathName';
 
 const dataCategory = [
     { categoryName: 'Choose option' },
@@ -14,7 +17,7 @@ const dataCategory = [
         categoryName: 'All'
     },
     {
-        categoryName: 'Best Foods'
+        categoryName: 'Best foods'
     },
     {
         categoryName: 'Burgers'
@@ -29,32 +32,49 @@ const dataCategory = [
 
 const FilterBar = () => {
     const dispatch = useDispatch();
-    const { pathname } = useLocation();
-    const pathName = pathname.slice(10);
+
+    const dataPrice = useSelector<RootState, any>((state) => state.filterProductByPrice);
 
     const [category, setCategory] = React.useState(dataCategory[0].categoryName);
-    const history = useHistory();
+    const navigate = useNavigate();
 
+    const pathName = usePathName();
+
+    // filter with category
     const handleChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
         const pathNameFilter = value.toLocaleLowerCase().replace(' ', '-');
         setCategory(value);
         if (pathNameFilter !== 'choose-option') {
-            dispatch(
-                getFilterProduct({
-                    category: category !== 'All' ? category : 'All',
-                    type: pathNameFilter,
-                    min: 1,
-                    max: 10000000,
-                    rating: null,
-                    pageNumber: null,
-                    sortOrder: null
-                })
-            );
-            history.push(`/delivery/${pathNameFilter}`);
+            Object.keys(dataPrice).length > 0
+                ? dispatch(
+                      getFilterProduct({
+                          category: category !== 'All' ? category : 'All',
+                          type: pathNameFilter,
+                          min: dataPrice.price?.min,
+                          max: dataPrice.price?.max,
+                          rating: null,
+                          pageNumber: null,
+                          sortOrder: null
+                      })
+                  )
+                : dispatch(
+                      getFilterProduct({
+                          category: category !== 'All' ? category : 'All',
+                          type: pathNameFilter,
+                          min: 1,
+                          max: 10000000,
+                          rating: null,
+                          pageNumber: null,
+                          sortOrder: null
+                      })
+                  );
+
+            navigate(`/delivery/${pathNameFilter}`);
         }
     };
 
+    // filter with price
     const handleFilterPrice = (event: any) => {
         switch (event.target.value) {
             case 'under50':
@@ -63,15 +83,15 @@ const FilterBar = () => {
                         category: category !== 'All' ? category : 'All',
                         type: pathName,
                         min: 1,
-                        max: 50,
+                        max: 49,
                         rating: null,
                         pageNumber: null,
                         sortOrder: null
                     })
                 );
+                dispatch(getPriceProduct({ min: 1, max: 49 }));
                 break;
             case '50to100':
-                console.log('50 - 100');
                 dispatch(
                     getFilterProduct({
                         category: category !== 'All' ? category : 'All',
@@ -83,25 +103,36 @@ const FilterBar = () => {
                         sortOrder: null
                     })
                 );
+                dispatch(getPriceProduct({ min: 50, max: 100 }));
                 break;
             case 'above100':
-                console.log('> 100');
                 dispatch(
                     getFilterProduct({
                         category: category !== 'All' ? category : 'All',
                         type: pathName,
-                        min: 100,
+                        min: 101,
                         max: 10000,
                         rating: null,
                         pageNumber: null,
                         sortOrder: null
                     })
                 );
+                dispatch(getPriceProduct({ min: 101, max: 10000 }));
                 break;
             default:
                 dispatch(getListCategory());
         }
     };
+
+    useEffect(() => {
+        if (pathName === '') {
+            setCategory('Choose option');
+        } else {
+            const categoryPath = capitalizeFirstLetter(pathName).replace('-', ' ');
+            setCategory(categoryPath);
+        }
+    }, [pathName]);
+
     return (
         <Box className="flex flex-col gap-4 px-3 bg-filter-bar tablet:hidden">
             <Typography

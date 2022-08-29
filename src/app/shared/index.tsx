@@ -12,7 +12,6 @@ export { default as InputField } from './input-field/InputField';
 // slider
 export { default as CardSlider } from './card-slider/CardSider';
 export { default as CategorySlider } from './category-slider/CategorySlider';
-export { default as ImageSlider } from './image-slider/ImageSlider';
 export { default as RestaurantSilder } from './restaurant-slider/RestaurantSlider';
 
 // cart
@@ -26,3 +25,7 @@ export { default as ProductCard } from './product-card/ProductCard';
 export { default as ListItem } from './List-item/ListItem';
 //table list
 export { default as EnhancedTable } from './table-product/TableProduct';
+// page not found
+export { default as PageNotFound } from './not-found/PageNotFound';
+// notification
+export { default as Notification } from './notification/Notification';

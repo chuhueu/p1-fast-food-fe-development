@@ -3,14 +3,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ProductCard } from '../../shared';
 import React from 'react';
 
-import DetailProduct from './components/DetailProduct';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PageProducts = () => {
-    const history = useHistory();
-    const backToDeliveryPage = () => {
-        history.goBack();
-    };
+    const navigate = useNavigate();
 
     return (
         <Container>
@@ -23,7 +19,7 @@ const PageProducts = () => {
                     right: '0',
                     cursor: 'pointer'
                 }}
-                onClick={() => backToDeliveryPage()}
+                onClick={() => navigate('/delivery')}
             >
                 Back to Delivery {''}
                 <ArrowBackIcon
@@ -34,8 +30,6 @@ const PageProducts = () => {
             </Typography>
 
             <ProductCard />
-
-            <DetailProduct />
         </Container>
     );
 };

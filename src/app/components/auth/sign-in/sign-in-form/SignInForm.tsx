@@ -13,14 +13,15 @@ import * as yup from 'yup';
 
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { userState } from '../../../../redux/reducers/userReducer';
 import { login } from '../../../../redux/actions/userActions';
-import { createCart } from '../../../../redux/actions/cartActions';
+import { createCart, getCart } from '../../../../redux/actions/cartActions';
+import { cartState } from '../../../../redux/reducers/cartReducer';
 
 const dataInput = [
     {
@@ -53,10 +54,12 @@ const schema = yup.object({
 
 const SignInForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const userLogin = useSelector<RootState, userState>((state) => state.userLogin);
+    const cartData = useSelector<RootState, cartState>((state) => state.getCart);
 
     const { userInfo, isFetching, error } = userLogin;
+    const { cartInfo } = cartData;
 
     const {
         register,
@@ -70,7 +73,6 @@ const SignInForm = () => {
     const onHandleSubmit: SubmitHandler<IFormInputs> = (data: any) => {
         const { email, password } = data;
         dispatch(login(email, password));
-
         reset({
             email: '',
             password: ''
@@ -78,12 +80,11 @@ const SignInForm = () => {
     };
 
     useEffect(() => {
-        if (userInfo) {
-            const { _id } = userInfo;
-            dispatch(createCart(_id));
-            history.push('/delivery');
+        if (userInfo?._id) {
+            dispatch(createCart(userInfo?._id));
+            navigate('/delivery');
         }
-    }, [userInfo, history]);
+    }, [userInfo, navigate]);
 
     const handleLoginGG = async (googleData: any) => {
         console.log(googleData);
@@ -96,8 +97,8 @@ const SignInForm = () => {
             }
         });
 
-        console.log(data);
         localStorage.setItem('userInfo', JSON.stringify(data));
+        window.location.href = '/manage';
     };
 
     const handleFailureGG = (res: any) => {

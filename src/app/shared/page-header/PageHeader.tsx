@@ -8,7 +8,7 @@ import NavbarHeader from './components/navbar-header';
 import UserHeader from './components/user-header';
 import NavbarUser from './components/navbar-user';
 import NavbarAdmin from './components/navbar-admin';
-import { useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -40,6 +40,13 @@ const PageHeader = () => {
     const closeUserNavbar = () => {
         setShowUserNav(false);
     };
+
+    // useEffect(() => {
+    //     const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!) : null;
+    //     if (userInfo?.role !== 'ROLE_MEMBER') {
+    //         userInfo : userInfoFromStorage
+    //     }
+    // }, [userInfo]);
 
     return (
         <>

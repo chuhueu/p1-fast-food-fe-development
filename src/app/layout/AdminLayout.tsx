@@ -1,10 +1,13 @@
+import { Box, Container } from '@mui/material';
 import React from 'react';
-import NavbarAdmin from '../../shared/page-header/components/navbar-admin';
-import { Box } from '@mui/material';
+import AdminSideBar from '../screens/page-admin/components/AdminSideBar';
+import NavbarAdmin from '../shared/page-header/components/navbar-admin';
 
-import AdminSideBar from './components/AdminSideBar';
+interface Props {
+    children: React.ReactNode;
+}
 
-const PageAdmin = () => {
+const AdminLayout: React.FC<Props> = ({ children }) => {
     return (
         <>
             <Box
@@ -16,10 +19,11 @@ const PageAdmin = () => {
                 <AdminSideBar />
                 <div className="flex flex-col w-full">
                     <NavbarAdmin />
+                    {children}
                 </div>
             </Box>
         </>
     );
 };
 
-export default PageAdmin;
+export default AdminLayout;

@@ -13,6 +13,8 @@ import { RootState } from '../../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartState } from '../../../redux/reducers/cartReducer';
 import { getCart, removeCartItem, updateQtyCartItem } from '../../../redux/actions/cartActions';
+import useTotalPrice from '../../../hooks/usePrice';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     closeCart: Function;
@@ -22,16 +24,19 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
     const dispatch = useDispatch();
     const getCartData = useSelector<RootState, cartState>((state) => state.getCart);
     const { cartInfo } = getCartData;
-    console.log(cartInfo);
 
-    const handleIncrease = (productID: string, qnt: number) => {
-        dispatch(updateQtyCartItem(productID, qnt + 1));
+    const totalPrice = useTotalPrice();
+
+    const navigate = useNavigate();
+
+    const handleIncrease = async (productID: string, qnt: number) => {
+        await dispatch(updateQtyCartItem(productID, qnt + 1));
         dispatch(getCart());
     };
 
-    const handleDecrease = (productID: string, qnt: number) => {
+    const handleDecrease = async (productID: string, qnt: number) => {
         if (qnt > 1) {
-            dispatch(updateQtyCartItem(productID, qnt - 1));
+            await dispatch(updateQtyCartItem(productID, qnt - 1));
             dispatch(getCart());
         }
     };
@@ -69,7 +74,7 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                         overflowY: 'auto'
                     }}
                 >
-                    {cartInfo.map((product: any) => (
+                    {cartInfo?.map((product: any) => (
                         <Box
                             sx={{
                                 display: 'flex',
@@ -159,7 +164,7 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                         </Typography>
 
                         <Typography variant="h5" component="h4" className="text-yellow-light">
-                            $ 2000
+                            $ {totalPrice}
                         </Typography>
                     </Box>
 
@@ -171,7 +176,7 @@ const CartItem: React.FC<Props> = ({ closeCart }) => {
                             height="50px"
                             width="40%"
                             color="#FFF"
-                            onClick={() => console.log('Checkout')}
+                            onClick={() => navigate('/checkout')}
                         >
                             Checkout
                         </PrimaryButton>

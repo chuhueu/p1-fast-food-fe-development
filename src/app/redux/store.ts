@@ -4,7 +4,13 @@ import thunk from 'redux-thunk';
 
 import { createCartReducer, cartItemReducer, getCartReducer, removeCartReducer, updateQtyCartReducer } from './reducers/cartReducer';
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer';
-import { listProductReducer, detailProductReducer, listFilterProductReducer, filterProductBynameReducer } from './reducers/productReducer';
+import {
+    listProductReducer,
+    detailProductReducer,
+    listFilterProductReducer,
+    filterProductBynameReducer,
+    filterProductByPriceReducer
+} from './reducers/productReducer';
 import { listCategoryReducer } from './reducers/categoryReducer';
 
 const reducers = combineReducers({
@@ -14,6 +20,7 @@ const reducers = combineReducers({
     detailProduct: detailProductReducer,
     filterProduct: listFilterProductReducer,
     filterProductByName: filterProductBynameReducer,
+    filterProductByPrice: filterProductByPriceReducer,
     createCart: createCartReducer,
     cartItem: cartItemReducer,
     getCart: getCartReducer,

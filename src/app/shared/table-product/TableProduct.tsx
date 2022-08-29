@@ -13,7 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 //redux
 import { RootState } from '../../redux/store';
-import { productState } from '../../redux/reducers/productReducer';
+import { filterProductState, productState } from '../../redux/reducers/productReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListProduct } from '../../redux/actions/productActions';
 
@@ -27,12 +27,18 @@ interface rowData {
 export default function DenseTable() {
     const dispatch = useDispatch();
     const productData = useSelector<RootState, productState>((state) => state.listProduct);
+    const filterProductData = useSelector<RootState, filterProductState>((state) => state.filterProduct);
+    const { filterProductInfo, isFetching } = filterProductData;
 
     React.useEffect(() => {
-        dispatch(getListProduct());
+        if (!filterProductInfo) {
+            dispatch(getListProduct());
+        }
     }, [dispatch]);
 
-    const { productInfo, isFetching } = productData;
+    const { productInfo } = productData;
+
+    console.log(filterProductInfo);
 
     return (
         <>
@@ -60,25 +66,53 @@ export default function DenseTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {productInfo?.map((product) => (
-                                <TableRow key={product._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell component="th" scope="row">
-                                        <img src={product.image} alt={product.image} className="max-w-[100px] max-h-[100px]" />
-                                    </TableCell>
-                                    <TableCell align="right">{product.name}</TableCell>
-                                    <TableCell align="right">{product.price}</TableCell>
-                                    <TableCell align="right">{product.desc}</TableCell>
-                                    <TableCell align="right">
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon />
-                                        </IconButton>
+                            <>
+                                {filterProductInfo ? (
+                                    <>
+                                        {filterProductInfo?.products?.map((product) => (
+                                            <TableRow key={product._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell component="th" scope="row">
+                                                    <img src={product.image} alt={product.image} className="max-w-[100px] max-h-[100px]" />
+                                                </TableCell>
+                                                <TableCell align="right">{product.name}</TableCell>
+                                                <TableCell align="right">{product.price}</TableCell>
+                                                <TableCell align="right">{product.desc}</TableCell>
+                                                <TableCell align="right">
+                                                    <IconButton aria-label="delete">
+                                                        <DeleteIcon />
+                                                    </IconButton>
 
-                                        <IconButton aria-label="delete">
-                                            <EditIcon />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                                                    <IconButton aria-label="delete">
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        {productInfo?.map((product) => (
+                                            <TableRow key={product._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell component="th" scope="row">
+                                                    <img src={product.image} alt={product.image} className="max-w-[100px] max-h-[100px]" />
+                                                </TableCell>
+                                                <TableCell align="right">{product.name}</TableCell>
+                                                <TableCell align="right">{product.price}</TableCell>
+                                                <TableCell align="right">{product.desc}</TableCell>
+                                                <TableCell align="right">
+                                                    <IconButton aria-label="delete">
+                                                        <DeleteIcon />
+                                                    </IconButton>
+
+                                                    <IconButton aria-label="delete">
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </>
+                                )}
+                            </>
                         </TableBody>
                     </Table>
                 </TableContainer>

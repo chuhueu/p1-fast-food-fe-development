@@ -16,7 +16,8 @@ import {
     ADD_NEW_PRODUCT_FAILURE,
     ADD_NEW_PRODUCT_REQUEST,
     ADD_NEW_PRODUCT_SUCCESS,
-    FILTER_PRODUCT_BY_NAME
+    FILTER_PRODUCT_BY_NAME,
+    FILTER_PRODUCT_BY_PRICE
 } from '../constants/productConstants';
 
 export const getListProduct =
@@ -64,16 +65,12 @@ export const getFilterProduct =
     };
 
 export const getDetailProduct =
-    (id: string): any =>
+    (id: any): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
         try {
             dispatch({ type: GET_DETAIL_PRODUCT_REQUEST });
 
-            // const {
-            //   userLogin: { userInfo },
-            // } = getState();
-
-            const { data } = await axios.post(`/product/${id}`);
+            const { data } = await axios.get(`/product/${id}`);
             dispatch({
                 type: GET_DETAIL_PRODUCT_SUCCESS,
                 payload: data
@@ -87,7 +84,7 @@ export const getDetailProduct =
     };
 
 export const addNewProduct =
-    ({ name, slug, image, desc, price, rate, country, category, productType }: any): any =>
+    ({ name, image, desc, price, rate, country, category }: any): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
         try {
             dispatch({ type: ADD_NEW_PRODUCT_REQUEST });
@@ -99,17 +96,17 @@ export const addNewProduct =
             };
             // fetch data from Backend
             const { data } = await axios.post(
-                '/',
+                '/product',
                 {
                     name,
-                    slug,
+                    // slug,
                     image,
                     desc,
                     price,
                     rate,
                     country,
-                    category,
-                    productType
+                    category
+                    // productType
                 },
                 config
             );
@@ -131,5 +128,14 @@ export const getFilterProductByname =
         dispatch({
             type: FILTER_PRODUCT_BY_NAME,
             payload: text
+        });
+    };
+
+export const getPriceProduct =
+    ({ min, max }: any): any =>
+    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
+        dispatch({
+            type: FILTER_PRODUCT_BY_PRICE,
+            payload: { min, max }
         });
     };

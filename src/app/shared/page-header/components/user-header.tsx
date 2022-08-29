@@ -60,7 +60,7 @@ const UserHeader: FC<IProps> = ({ showUserNav, closeUserNav }) => {
                                 gap: '20px'
                             }}
                         >
-                            <Link to="/" className="text-xl font-medium">
+                            <Link to="/profile" className="text-xl font-medium">
                                 Account
                             </Link>
                             <Link to="/" className="text-xl font-medium">

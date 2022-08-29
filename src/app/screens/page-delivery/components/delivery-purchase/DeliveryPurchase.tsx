@@ -3,8 +3,6 @@ import { Container, IconButton, Typography } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import { ImageSlider } from '../../../../shared';
-
 const DeliveryPurchase = () => {
     return (
         <section className="pb-10">
@@ -58,8 +56,6 @@ const DeliveryPurchase = () => {
                     </IconButton>
                 </div>
             </div>
-
-            <ImageSlider />
         </section>
     );
 };
