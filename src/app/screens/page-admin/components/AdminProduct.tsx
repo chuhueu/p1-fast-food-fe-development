@@ -4,7 +4,7 @@ import { EnhancedTable } from '../../../shared/index';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 
-import dataCategory from '../../../utils/staticData';
+import { dataCategory } from '../../../utils/staticData';
 import { useDispatch } from 'react-redux';
 import { getFilterProduct } from '../../../redux/actions/productActions';
 

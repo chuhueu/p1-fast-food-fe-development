@@ -17,7 +17,7 @@ const dataCategory = [
         categoryName: 'All'
     },
     {
-        categoryName: 'Best Foods'
+        categoryName: 'Best foods'
     },
     {
         categoryName: 'Burgers'

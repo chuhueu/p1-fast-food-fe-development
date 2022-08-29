@@ -102,7 +102,7 @@ export const getCart =
     };
 
 export const removeCartItem =
-    (itemID: string): any =>
+    (itemID: any): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
         try {
             dispatch({ type: REMOVE_TO_CART_REQUEST });

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, IconButton } from '@mui/material';
 import { PrimaryButton } from '../../../shared';
-import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -14,14 +13,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, getCart } from '../../../redux/actions/cartActions';
 import { useParams } from 'react-router-dom';
 import { getDetailProduct } from '../../../redux/actions/productActions';
-
-interface productType {
-    product: string;
-    name: string;
-    image: string;
-    price: number;
-    quantity: number;
-}
 
 const ItemProduct = () => {
     const detailProduct = useSelector<RootState, detailProductState>((state) => state.detailProduct);
@@ -56,167 +47,149 @@ const ItemProduct = () => {
 
     return (
         <>
-            {isFetching ? (
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '250px'
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <>
+            <Box
+                sx={{
+                    marginTop: '20px'
+                }}
+                key={productInfo?._id}
+            >
+                <Box sx={{ display: 'flex', width: '100%', gap: '10px', marginBottom: '40px' }}>
                     <Box
                         sx={{
-                            marginTop: '20px'
+                            width: '20%'
                         }}
-                        key={productInfo?._id}
                     >
-                        <Box sx={{ display: 'flex', width: '100%', gap: '10px', marginBottom: '40px' }}>
+                        <img src={productInfo?.image} alt={productInfo?.image} className="h-full" />
+                    </Box>
+                    <Box sx={{ width: '80%', maxWidth: '70%' }}>
+                        <Typography
+                            variant="h3"
+                            component="h2"
+                            sx={{
+                                width: '100%',
+                                maxWidth: '100%',
+                                wordWrap: 'break-word',
+                                fontWeight: '500',
+                                marginBottom: '12px'
+                            }}
+                        >
+                            {productInfo?.name}
+                        </Typography>
+
+                        <Typography
+                            variant="body1"
+                            component="span"
+                            sx={{
+                                width: '100%',
+                                maxWidth: '100%',
+                                wordWrap: 'break-word'
+                            }}
+                            className="text-zinc-400"
+                        >
+                            {productInfo?.country}
+                        </Typography>
+
+                        <Box
+                            sx={{
+                                marginTop: '12px',
+                                marginBottom: '20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
+                        >
+                            <Typography
+                                variant="h4"
+                                component="h3"
+                                sx={{
+                                    width: '100%',
+                                    maxWidth: '100%',
+                                    wordWrap: 'break-word',
+                                    fontWeight: '600',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px'
+                                }}
+                                className="text-yellow-light"
+                            >
+                                $
+                                <Typography
+                                    variant="h5"
+                                    component="span"
+                                    sx={{
+                                        fontWeight: '500'
+                                    }}
+                                    className="text-yellow-light"
+                                >
+                                    {productInfo?.price}
+                                </Typography>
+                            </Typography>
+
                             <Box
                                 sx={{
-                                    width: '20%'
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '6px'
                                 }}
                             >
-                                <img src={productInfo?.image} alt={productInfo?.image} className="h-full" />
-                            </Box>
-                            <Box sx={{ width: '80%', maxWidth: '70%' }}>
+                                <IconButton onClick={() => handleDecreaseProduct()}>
+                                    <RemoveIcon />
+                                </IconButton>
+
                                 <Typography
-                                    variant="h3"
-                                    component="h2"
+                                    variant="h4"
+                                    component="h3"
                                     sx={{
                                         width: '100%',
                                         maxWidth: '100%',
                                         wordWrap: 'break-word',
-                                        fontWeight: '500',
-                                        marginBottom: '12px'
+                                        fontWeight: '600',
+                                        textAlign: 'center'
                                     }}
+                                    className="text-yellow-light"
                                 >
-                                    {productInfo?.name}
+                                    {qntProduct}
                                 </Typography>
 
-                                <Typography
-                                    variant="body1"
-                                    component="span"
-                                    sx={{
-                                        width: '100%',
-                                        maxWidth: '100%',
-                                        wordWrap: 'break-word'
-                                    }}
-                                    className="text-zinc-400"
-                                >
-                                    {productInfo?.country}
-                                </Typography>
-
-                                <Box
-                                    sx={{
-                                        marginTop: '12px',
-                                        marginBottom: '20px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between'
-                                    }}
-                                >
-                                    <Typography
-                                        variant="h4"
-                                        component="h3"
-                                        sx={{
-                                            width: '100%',
-                                            maxWidth: '100%',
-                                            wordWrap: 'break-word',
-                                            fontWeight: '600',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '6px'
-                                        }}
-                                        className="text-yellow-light"
-                                    >
-                                        $
-                                        <Typography
-                                            variant="h5"
-                                            component="span"
-                                            sx={{
-                                                fontWeight: '500'
-                                            }}
-                                            className="text-yellow-light"
-                                        >
-                                            {productInfo?.price}
-                                        </Typography>
-                                    </Typography>
-
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
-                                            gap: '6px'
-                                        }}
-                                    >
-                                        <IconButton onClick={() => handleDecreaseProduct()}>
-                                            <RemoveIcon />
-                                        </IconButton>
-
-                                        <Typography
-                                            variant="h4"
-                                            component="h3"
-                                            sx={{
-                                                width: '100%',
-                                                maxWidth: '100%',
-                                                wordWrap: 'break-word',
-                                                fontWeight: '600',
-                                                textAlign: 'center'
-                                            }}
-                                            className="text-yellow-light"
-                                        >
-                                            {qntProduct}
-                                        </Typography>
-
-                                        <IconButton onClick={() => handleIncreaseProduct()}>
-                                            <AddIcon />
-                                        </IconButton>
-                                    </Box>
-                                </Box>
-                                <Typography
-                                    variant="body1"
-                                    component="span"
-                                    sx={{
-                                        width: '100%',
-                                        maxWidth: '100%',
-                                        wordWrap: 'break-word'
-                                    }}
-                                >
-                                    {productInfo?.desc}
-                                </Typography>
-                            </Box>
-                            <Box>
-                                <CloseIcon className="cursor-pointer" fontSize="large" onClick={() => closeDetailProduct()} />
+                                <IconButton onClick={() => handleIncreaseProduct()}>
+                                    <AddIcon />
+                                </IconButton>
                             </Box>
                         </Box>
-
-                        <Box
+                        <Typography
+                            variant="body1"
+                            component="span"
                             sx={{
-                                display: 'flex',
-                                justifyContent: 'center'
+                                width: '100%',
+                                maxWidth: '100%',
+                                wordWrap: 'break-word'
                             }}
                         >
-                            <PrimaryButton
-                                border="none"
-                                bgcolor="#FFCE00"
-                                height="50px"
-                                onClick={() => handleAddToCart()}
-                                radius="12px"
-                                width="40%"
-                                color="#FFF"
-                            >
-                                Add to Cart
-                            </PrimaryButton>
-                        </Box>
+                            {productInfo?.desc}
+                        </Typography>
                     </Box>
-                </>
-            )}
+                </Box>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <PrimaryButton
+                        border="none"
+                        bgcolor="#FFCE00"
+                        height="50px"
+                        onClick={() => handleAddToCart()}
+                        radius="12px"
+                        width="40%"
+                        color="#FFF"
+                    >
+                        Add to Cart
+                    </PrimaryButton>
+                </Box>
+            </Box>
         </>
     );
 };

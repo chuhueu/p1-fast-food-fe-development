@@ -14,8 +14,6 @@ const usePathName = (): string => {
     return pathName;
 };
 
-const capitalizeFirstLetter = (letter: string): string => {
-    return letter[0].toUpperCase() + letter.substring(1);
-};
+const capitalizeFirstLetter = (letter: string): string => letter[0].toUpperCase() + letter.substring(1);
 
 export { usePathName, capitalizeFirstLetter };

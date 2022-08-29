@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Box, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Box, Typography, Rating, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import { InputField } from '../../../shared';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -7,6 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { PrimaryButton } from '../../../shared/index';
+
+import { dataCategoryAdmin } from '../../../utils/staticData';
+import { useDispatch } from 'react-redux';
+import { addNewProduct } from '../../../redux/actions/productActions';
 
 const dataInput = [
     {
@@ -23,18 +27,37 @@ const dataInput = [
         label: 'Price',
         id: 'price',
         type: 'text'
+    },
+    {
+        label: 'Country',
+        id: 'country',
+        type: 'text'
+    },
+    {
+        label: 'Image',
+        id: 'image',
+        type: 'text'
     }
 ];
 interface IFormInputs {
     name: string;
     desc: string;
     price: number;
+    country: string;
+    image: string;
 }
 
 const schema = yup.object({
     name: yup.string().required('This field is required'),
     desc: yup.string().required('This field is required'),
-    price: yup.number().required('This field is required')
+    price: yup
+        .number()
+        .typeError('Price must be a number')
+        .nullable()
+        .moreThan(0, 'Floor area cannot be negative')
+        .transform((_, val) => (val !== '' ? Number(val) : null)),
+    country: yup.string().required('This field is required'),
+    image: yup.string().required('This field is required')
 });
 
 const AddNewProduct = () => {
@@ -47,7 +70,49 @@ const AddNewProduct = () => {
         resolver: yupResolver(schema)
     });
 
-    const onHandleSubmit: SubmitHandler<IFormInputs> = (data: any) => {};
+    const dispatch = useDispatch();
+    const [valueRate, setValueRate] = React.useState<number | null>(2);
+    const [category, setCategory] = React.useState(dataCategoryAdmin[0].categoryName);
+    const [idCategory, setIdCategory] = useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        const value = event.target.value;
+        setCategory(value);
+        console.log(value);
+        switch (value) {
+            case 'Best Foods':
+                setIdCategory(dataCategoryAdmin[0].idCategory);
+                break;
+            case 'Burgers':
+                setIdCategory(dataCategoryAdmin[1].idCategory);
+                break;
+            case 'Drinks':
+                setIdCategory(dataCategoryAdmin[2].idCategory);
+                break;
+            case 'Pizzas':
+                setIdCategory(dataCategoryAdmin[3].idCategory);
+                break;
+            default:
+                return;
+        }
+    };
+
+    const onHandleSubmit: SubmitHandler<IFormInputs> = (data: any) => {
+        console.log(data);
+        console.log(idCategory);
+        console.log(valueRate);
+        dispatch(
+            addNewProduct({
+                name: data.name,
+                image: data.image,
+                desc: data.desc,
+                price: data.price,
+                rate: valueRate,
+                country: data.country,
+                category: idCategory
+            })
+        );
+    };
     return (
         <>
             <Container>
@@ -72,6 +137,38 @@ const AddNewProduct = () => {
                                 type={item.type}
                             />
                         ))}
+
+                        <Box
+                            sx={{
+                                marginBottom: '16px'
+                            }}
+                        >
+                            <Typography component="legend">Rating</Typography>
+                            <Rating
+                                name="rating"
+                                precision={0.5}
+                                value={valueRate}
+                                onChange={(event, newValue) => {
+                                    setValueRate(newValue);
+                                }}
+                            />
+                        </Box>
+
+                        <Box
+                            sx={{
+                                width: '30%',
+                                marginBottom: '20px'
+                            }}
+                        >
+                            <Typography component="legend">Category</Typography>
+                            <Select labelId="delivery-category" id="category" value={category} onChange={handleChange} autoWidth>
+                                {dataCategoryAdmin.map(({ categoryName }) => (
+                                    <MenuItem value={categoryName} key={categoryName}>
+                                        {categoryName}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </Box>
 
                         <PrimaryButton
                             border="1px solid #111"

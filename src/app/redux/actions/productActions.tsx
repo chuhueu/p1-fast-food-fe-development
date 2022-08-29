@@ -70,7 +70,7 @@ export const getDetailProduct =
         try {
             dispatch({ type: GET_DETAIL_PRODUCT_REQUEST });
 
-            const { data } = await axios.post(`/product/${id}`);
+            const { data } = await axios.get(`/product/${id}`);
             dispatch({
                 type: GET_DETAIL_PRODUCT_SUCCESS,
                 payload: data
@@ -84,7 +84,7 @@ export const getDetailProduct =
     };
 
 export const addNewProduct =
-    ({ name, slug, image, desc, price, rate, country, category, productType }: any): any =>
+    ({ name, image, desc, price, rate, country, category }: any): any =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState): Promise<void> => {
         try {
             dispatch({ type: ADD_NEW_PRODUCT_REQUEST });
@@ -96,17 +96,17 @@ export const addNewProduct =
             };
             // fetch data from Backend
             const { data } = await axios.post(
-                '/',
+                '/product',
                 {
                     name,
-                    slug,
+                    // slug,
                     image,
                     desc,
                     price,
                     rate,
                     country,
-                    category,
-                    productType
+                    category
+                    // productType
                 },
                 config
             );

@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import SearchInput from '../search-input/search-input';
 import { useNavigate } from 'react-router-dom';
 
+import { Notification } from '../index';
+
 import { usePathName } from '../../hooks/usePathName';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +15,6 @@ import { RootState } from '../../redux/store';
 import { filterProductState, searchTextName } from '../../redux/reducers/productReducer';
 
 import { getFilterProduct } from '../../redux/actions/productActions';
-import { Link } from 'react-router-dom';
 import { addToCart, getCart } from '../../redux/actions/cartActions';
 
 const Img = styled('img')({
@@ -41,32 +42,41 @@ const ProductCard = () => {
     const handleAddToCart = async (product: any) => {
         await dispatch(addToCart(product, product?.name, product?.image, product?.price, 1));
         dispatch(getCart());
+
+        Notification();
     };
 
     useEffect(() => {
-        Object.keys(dataPrice).length > 0
-            ? dispatch(
-                  getFilterProduct({
-                      category: 'All',
-                      type: pathName,
-                      min: dataPrice.price?.min,
-                      max: dataPrice.price?.max,
-                      rating: null,
-                      pageNumber: null,
-                      sortOrder: null
-                  })
-              )
-            : dispatch(
-                  getFilterProduct({
-                      category: 'All',
-                      type: pathName,
-                      min: 1,
-                      max: 10000000,
-                      rating: null,
-                      pageNumber: null,
-                      sortOrder: null
-                  })
-              );
+        const handleLoading = () => {
+            Object.keys(dataPrice).length > 0
+                ? dispatch(
+                      getFilterProduct({
+                          category: 'All',
+                          type: pathName,
+                          min: dataPrice.price?.min,
+                          max: dataPrice.price?.max,
+                          rating: null,
+                          pageNumber: null,
+                          sortOrder: null
+                      })
+                  )
+                : dispatch(
+                      getFilterProduct({
+                          category: 'All',
+                          type: pathName,
+                          min: 1,
+                          max: 10000000,
+                          rating: null,
+                          pageNumber: null,
+                          sortOrder: null
+                      })
+                  );
+        };
+        window.addEventListener('load', handleLoading);
+
+        return () => {
+            window.addEventListener('load', handleLoading);
+        };
     }, [pathName, dataPrice.price]);
 
     return (
@@ -86,7 +96,7 @@ const ProductCard = () => {
 
             <Box
                 sx={{
-                    width: '50%',
+                    width: { xs: '60%', sm: '50%', md: '50%' },
                     transform: 'translateX(20%)',
                     marginBottom: '20px'
                 }}
@@ -120,24 +130,28 @@ const ProductCard = () => {
                                 })
                                 .map((item) => (
                                     <Grid item xs={12} sm={6} md={6} key={item._id}>
-                                        <Link to={`/delivery/product/${item._id}`}>
-                                            <Box className="!justify-start  border-2 border-solid bg-gray-fade rounded-md cursor-pointer">
+                                        <Box className="!justify-start border-2 border-solid bg-gray-fade rounded-md cursor-pointer">
+                                            <Box
+                                                sx={{
+                                                    padding: '10px 30px',
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    display: 'flex',
+                                                    alignItem: 'center',
+                                                    position: 'relative'
+                                                }}
+                                            >
                                                 <Box
                                                     sx={{
-                                                        padding: '10px 30px',
-                                                        width: '100%',
-                                                        height: '100%',
-                                                        display: 'flex',
-                                                        alignItem: 'center',
-                                                        position: 'relative'
+                                                        flex: '1'
                                                     }}
+                                                    onClick={() => navigate(`/delivery/product/${item._id}`)}
                                                 >
                                                     <Box
                                                         sx={{
                                                             display: 'flex',
                                                             gap: '20px',
-                                                            alignItems: 'center',
-                                                            flex: '1'
+                                                            alignItems: 'center'
                                                         }}
                                                     >
                                                         <Box
@@ -171,15 +185,15 @@ const ProductCard = () => {
                                                             </Typography>
                                                         </Box>
                                                     </Box>
-                                                    <IconButton
-                                                        className="left-0 top-0 !w-12 !h-12 cursor-pointer z-[100]"
-                                                        onClick={() => handleAddToCart(item)}
-                                                    >
-                                                        <AddShoppingCartIcon />
-                                                    </IconButton>
                                                 </Box>
+                                                <IconButton
+                                                    className="left-0 top-0 !w-12 !h-12 cursor-pointer z-[10]"
+                                                    onClick={() => handleAddToCart(item)}
+                                                >
+                                                    <AddShoppingCartIcon />
+                                                </IconButton>
                                             </Box>
-                                        </Link>
+                                        </Box>
                                     </Grid>
                                 ))}
                     </Grid>

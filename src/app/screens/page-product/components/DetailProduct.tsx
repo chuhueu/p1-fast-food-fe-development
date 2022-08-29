@@ -17,7 +17,8 @@ const DetailProduct = () => {
                         justifyContent: 'flex-end',
                         alignItems: 'center',
                         gap: '8px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        marginTop: '50px'
                     }}
                     onClick={() => navigate(-1)}
                 >

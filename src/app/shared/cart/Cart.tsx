@@ -23,11 +23,17 @@ const Cart = () => {
             <div
                 className={
                     isShowCart
-                        ? 'fixed right-0 top-0  w-[400px] h-screen bg-white z-[999] rounded-tl-md rounded-bl-md translate-x-0  transition-all delay-75 ease-linear cursor-pointer opacity-1 visible '
-                        : 'fixed right-0 top-0  w-[400px] h-screen bg-white z-[999] rounded-tl-md rounded-bl-md translate-x-full  transition-all delay-75 ease-linear cursor-pointer  opacity-0 invisible'
+                        ? 'fixed right-0 top-0  w-[400px] phone:w-full h-screen bg-white z-[999] rounded-tl-md rounded-bl-md translate-x-0  transition-all delay-75 ease-linear cursor-pointer opacity-1 visible '
+                        : 'fixed right-0 top-0  w-[400px] phone:w-full h-screen bg-white z-[999] rounded-tl-md rounded-bl-md translate-x-full  transition-all delay-75 ease-linear cursor-pointer  opacity-0 invisible'
                 }
             >
-                {cartInfo ? <CartItem closeCart={closeCart} /> : <CartEmpty closeCart={closeCart} />}
+                {/* {cartInfo ? <CartItem closeCart={closeCart} /> : <CartEmpty closeCart={closeCart} />} */}
+
+                {cartInfo ? (
+                    <>{cartInfo.length > 0 ? <CartItem closeCart={closeCart} /> : <CartEmpty closeCart={closeCart} />}</>
+                ) : (
+                    <CartEmpty closeCart={closeCart} />
+                )}
             </div>
 
             <div className="relative">

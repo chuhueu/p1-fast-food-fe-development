@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useState, useEffect } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -10,7 +10,8 @@ import { AuthContext } from '../../../context/AuthContext';
 //redux
 import { RootState } from '../../../redux/store';
 import { userState } from '../../../redux/reducers/userReducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartState } from '../../../redux/reducers/cartReducer';
 
 const navItem = [
     {
@@ -33,7 +34,13 @@ interface IProps {
 
 const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
     const userData = useSelector<RootState, userState>((state) => state.userLogin);
+    const getCartData = useSelector<RootState, cartState>((state) => state.getCart);
+    const [totalQnt, setTotalQnt] = useState(0);
+
+    const { cartInfo } = getCartData;
+
     const { isShowCart, setIsShowCart } = useContext(AuthContext);
+    const dispatch = useDispatch();
     const { pathname } = useLocation();
     const activeNav = pathname.replace('/', '');
     const [typeNav, setTypeNav] = useState(activeNav);
@@ -44,10 +51,20 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
         setIsShowCart(!isShowCart);
     };
 
+    useEffect(() => {
+        if (cartInfo && cartInfo.length > 0) {
+            const totalQnt = cartInfo.reduce((acc, item) => acc + item.quantity, 0);
+
+            setTotalQnt(totalQnt);
+        } else {
+            setTotalQnt(0);
+        }
+    }, [cartInfo]);
+
     return (
         <>
-            <div className="flex items-center justify-between w-full">
-                <nav className="ml-11 border-4 border-solid border-gray-blur rounded-3xl bg-gray-blur">
+            <div className="flex items-center justify-between w-full tablet:justify-end">
+                <nav className="ml-11 border-4 border-solid border-gray-blur rounded-3xl bg-gray-blur tablet:hidden">
                     <ul className="flex">
                         {navItem.map(({ path, itemName }) => (
                             <Link
@@ -64,8 +81,6 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                     </ul>
                 </nav>
                 <div className="flex justify-between gap-5">
-                    {/* <SearchInput placeholder="Beer, Wine, Food, etc" /> */}
-
                     <div className="flex gap-5">
                         <div
                             className="bg-yellow-light flex items-center py-3 px-5 rounded-2xl gap-2 cursor-pointer"
@@ -85,11 +100,11 @@ const NavbarUser: FC<IProps> = ({ showNavbarUser }) => {
                                     color: '#ffffff'
                                 }}
                             >
-                                0
+                                {totalQnt}
                             </Typography>
                         </div>
 
-                        <div className="flex justify-center items-center cursor-pointer">
+                        <div className="flex justify-center items-center cursor-pointer phone:hidden">
                             {userInfo ? <Avatar src={userInfo?.avatar} /> : <Avatar />}
                         </div>
                         <div className="flex justify-center items-center cursor-pointer" onClick={() => showNavbarUser()}>

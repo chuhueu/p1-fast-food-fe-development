@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { HomePage, SignIn, SignUp } from '../components';
-import { PageDelivery, PageProducts } from '../screens';
+import { PageDelivery, PageProducts, PageCheckout } from '../screens';
 import DetailProduct from '../screens/page-product/components/DetailProduct';
-import { PageHeader, PageNotFound } from '../shared';
+import { PageHeader } from '../shared';
 import ProfileUser from '../screens/page-profile/ProfileUser';
 
 import ClientLayout from '../layout/ClientLayout';
@@ -32,8 +32,8 @@ const Client = () => {
                 }
             />
 
+            <Route path="/checkout" element={<PageCheckout />} />
             <Route path="/profile" element={<ProfileUser />} />
-            <Route path="*" element={<PageNotFound />} />
         </Routes>
     );
 };

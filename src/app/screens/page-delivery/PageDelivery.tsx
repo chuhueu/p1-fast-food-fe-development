@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PageHeader, FilterBar, RestaurantSilder } from '../../shared';
 import { Container, Box } from '@mui/material';
 
-// import DeliveryPurchase from './components/delivery-purchase/DeliveryPurchase';
-
 import DeleveryCategorySlider from './components/delivery-category-slide/DeleveryCategorySlider';
+import { getCart } from '../../redux/actions/cartActions';
+import { useDispatch } from 'react-redux';
 
 const PageDelivery = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getCart());
+    }, []);
+
     return (
         <>
             <PageHeader />

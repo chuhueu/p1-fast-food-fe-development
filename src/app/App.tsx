@@ -8,6 +8,11 @@ import { RootState } from './redux/store';
 import { userState } from './redux/reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import Notification from './shared/notification/Notification';
+
+// toast
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const userLogin = useSelector<RootState, userState>((state) => state.userLogin);
@@ -21,11 +26,14 @@ function App() {
     }, [userInfo]);
 
     return (
-        <Router>
-            <AuthProvider>
-                <Routes>{check ? <Route path="/manage/*" element={<Admin />} /> : <Route path="/*" element={<Client />} />}</Routes>
-            </AuthProvider>
-        </Router>
+        <>
+            <Router>
+                <AuthProvider>
+                    <Routes>{check ? <Route path="/manage/*" element={<Admin />} /> : <Route path="/*" element={<Client />} />}</Routes>
+                </AuthProvider>
+            </Router>
+            <ToastContainer closeButton={false} />{' '}
+        </>
     );
 }
 

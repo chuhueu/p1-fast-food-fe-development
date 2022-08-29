@@ -23,9 +23,9 @@ export interface cartInfo {
     product?: string;
     name?: string;
     image?: string;
-    price?: number;
+    price: number;
     discount?: number;
-    quantity?: number;
+    quantity: number;
 }
 
 export interface cartState {
